@@ -21,7 +21,7 @@ class Home extends CI_Controller {
 	function index(){
 		$data['halaman'] = 'Dashboard';
 		$data['config'] = (object)$this->site_config;
-
+		$data['bulan'] = $this->bulan->bln();
 		$this->parser->parse($this->halaman.'/index', $data);
 	}
 }
