@@ -43,7 +43,7 @@ $(function () {
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-6">
-          <div class="card">
+          <div class="card card-info">
             <div class="card-header">
               <h5 class="card-title">Form Customer</h5>
 

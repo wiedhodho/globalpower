@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 26, 2020 at 06:08 PM
+-- Generation Time: Jul 27, 2020 at 11:08 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.32
 
@@ -54,6 +54,77 @@ INSERT INTO `customer` (`customer_id`, `customer_nama`, `customer_alamat`, `cust
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `items`
+--
+
+CREATE TABLE `items` (
+  `items_id` int(11) NOT NULL,
+  `items_quo` int(11) NOT NULL,
+  `items_desc` varchar(255) NOT NULL,
+  `items_qty` int(11) NOT NULL,
+  `items_satuan` varchar(50) NOT NULL,
+  `items_price` int(11) NOT NULL,
+  `items_a` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `logger`
+--
+
+CREATE TABLE `logger` (
+  `log_id` int(11) NOT NULL,
+  `log_user` varchar(50) NOT NULL,
+  `log_password` varchar(50) NOT NULL,
+  `log_ip` varchar(15) NOT NULL,
+  `log_status` enum('0','1') NOT NULL,
+  `log_lastupdate` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `logger`
+--
+
+INSERT INTO `logger` (`log_id`, `log_user`, `log_password`, `log_ip`, `log_status`, `log_lastupdate`) VALUES
+(1, 'wiedhodho', 'admin', '::1', '0', '2020-07-27 14:08:51'),
+(2, 'wiedhodho', 'admin', '::1', '0', '2020-07-27 14:08:52'),
+(3, 'wiedhodho', 'admin', '::1', '0', '2020-07-27 14:09:44'),
+(4, 'wiedhodho', 'admin', '::1', '0', '2020-07-27 14:09:45'),
+(5, 'wiedhodho', 'admin', '::1', '0', '2020-07-27 14:10:09'),
+(6, 'wiedhodho', 'admin', '::1', '1', '2020-07-27 14:11:44'),
+(7, 'wiedhodho', 'admin', '::1', '1', '2020-07-27 14:23:28'),
+(8, 'wiedhodho', 'admin', '::1', '1', '2020-07-27 14:55:13'),
+(9, 'wiedhodho', 'admin', '::1', '1', '2020-07-27 14:55:49'),
+(10, 'wiedhodho', 'admin', '::1', '1', '2020-07-27 14:58:56'),
+(11, 'wiedhodho', 'admin', '::1', '1', '2020-07-27 14:59:03'),
+(12, 'wiedhodho', 'admin', '::1', '1', '2020-07-27 15:02:23'),
+(13, 'wiedhodho', 'admin', '::1', '1', '2020-07-27 15:07:17'),
+(14, 'wiedhodho', 'admin', '::1', '1', '2020-07-27 15:08:14');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quotation`
+--
+
+CREATE TABLE `quotation` (
+  `quotation_id` int(11) NOT NULL,
+  `quotation_jenis` tinyint(4) NOT NULL,
+  `quotation_nomor` int(11) NOT NULL,
+  `quotation_customer` int(11) NOT NULL,
+  `quotation_nama` varchar(50) DEFAULT NULL,
+  `quotation_telp` varchar(20) DEFAULT NULL,
+  `quotation_tanggal` date NOT NULL,
+  `quotation_total` int(11) NOT NULL,
+  `quotation_user` int(11) NOT NULL,
+  `quotation_lastupdate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `quotation_tahun` year(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `settings`
 --
 
@@ -69,11 +140,42 @@ CREATE TABLE `settings` (
 
 INSERT INTO `settings` (`settings_id`, `settings_value`, `settings_lastupdate`) VALUES
 ('allowed_filetypes', 'audio/*|image/*|png|psd|pdf|xls|xlsx|doc|docx|ppt|pptx', '2020-04-20 14:57:33'),
-('app_name', 'e-Surat', '2020-04-11 12:14:12'),
+('app_name', 'Global Power System', '2020-07-27 14:06:04'),
 ('footer', 'Copyright © 2020 Diskominfo Kabupaten Berau', '2020-04-11 12:15:13'),
 ('max_size', '5', '2020-04-18 08:20:17'),
 ('site_name', 'GLOBAL POWER', '2020-07-26 13:44:27'),
-('site_title', 'Aplikasi Pengiriman Berkas Kabupaten Berau', '2020-04-09 12:54:26');
+('site_title', 'Aplikasi Invoice', '2020-07-27 14:23:03');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `users_id` int(11) NOT NULL,
+  `users_name` varchar(50) NOT NULL,
+  `users_pass` varchar(50) NOT NULL,
+  `users_salt` varchar(50) NOT NULL,
+  `users_level` tinyint(4) NOT NULL,
+  `users_nama` varchar(100) NOT NULL,
+  `users_lastlogin` timestamp NULL DEFAULT NULL,
+  `users_lastip` varchar(15) DEFAULT NULL,
+  `users_lastupdate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `users_deleted` enum('0','1') NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`users_id`, `users_name`, `users_pass`, `users_salt`, `users_level`, `users_nama`, `users_lastlogin`, `users_lastip`, `users_lastupdate`, `users_deleted`) VALUES
+(1, 'wiedhodho', 'dd94709528bb1c83d08f3088d4043f4742891f4f', 'admin', 0, 'EDI WAHYU WIDODO', '2020-07-27 15:08:16', '::1', '2020-07-27 15:08:16', '0'),
+(5, 'disdik', '236d19eff90e99870777cf274fa6ec1e4ae6af46', '_Wp4&S8*ctVnq%R5fLr$~CP(w', 1, 'Arie Sudiantoro', '2020-07-26 07:42:36', '::1', '2020-07-26 13:42:36', '0'),
+(6, 'admin', '11369382927675e31fb83c4033b04e303f441c09', '0IXKBEdn!9(p)%D6lr2QhfT~S', 2, 'Arief Wiedhartono', '2020-06-16 07:07:43', '::1', '2020-06-16 13:07:43', '0'),
+(7, 'setda', '0f85e5084f67e665ef64233346f5370c0fe09428', 'mvgR!DOe6qw2QA8%&1T_XuCBh', 1, 'setda', '2020-07-19 20:01:49', '::1', '2020-07-20 02:01:49', '0'),
+(8, 'disdik2', '7650567ef76c30756924ad263e2cdd5adeef52f1', 'JQqcjp)9tUIoWV!NG86YryA74', 2, 'Disdik 2', NULL, NULL, '2020-07-26 13:41:56', '0'),
+(9, 'coba123', '93d96284ebffe74b8a2594d8dde24bb188fe2bbf', '9ryG+cb@6(RiC2Z4JmX*~OuF#', 0, 'coba coba 123', NULL, NULL, '2020-07-27 14:52:58', '1');
 
 --
 -- Indexes for dumped tables
@@ -86,10 +188,35 @@ ALTER TABLE `customer`
   ADD PRIMARY KEY (`customer_id`);
 
 --
+-- Indexes for table `items`
+--
+ALTER TABLE `items`
+  ADD PRIMARY KEY (`items_id`);
+
+--
+-- Indexes for table `logger`
+--
+ALTER TABLE `logger`
+  ADD PRIMARY KEY (`log_id`);
+
+--
+-- Indexes for table `quotation`
+--
+ALTER TABLE `quotation`
+  ADD PRIMARY KEY (`quotation_id`);
+
+--
 -- Indexes for table `settings`
 --
 ALTER TABLE `settings`
   ADD PRIMARY KEY (`settings_id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`users_id`),
+  ADD UNIQUE KEY `users_name` (`users_name`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -100,6 +227,30 @@ ALTER TABLE `settings`
 --
 ALTER TABLE `customer`
   MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `items`
+--
+ALTER TABLE `items`
+  MODIFY `items_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `logger`
+--
+ALTER TABLE `logger`
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `quotation`
+--
+ALTER TABLE `quotation`
+  MODIFY `quotation_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `users_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

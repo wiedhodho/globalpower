@@ -43,9 +43,9 @@ $(function () {
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-6">
-          <div class="card card-info">
+          <div class="card">
             <div class="card-header">
-              <h5 class="card-title">Form Customer</h5>
+              <h5 class="card-title">Form Edit User</h5>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -58,40 +58,41 @@ $(function () {
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <form class="form-horizontal" method="post" action="{base_url('customer/update')}">
+              <form class="form-horizontal" method="post" action="{base_url('users/update')}">
                 <div class="card-body">
                   <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-3 col-form-label">Nama Customer</label>
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Nama Lengkap</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" id="inputEmail3" placeholder="Nama Customer" name="nama" value="{$cust->customer_nama}" required>
-                      <input type="hidden" name="id" value="{$cust->customer_id}" required>
+                      <input type="text" class="form-control" id="inputEmail3" placeholder="Nama Lengkap" name="nama" value="{$user->users_nama}" required>
+                      <input type="hidden" name="id" value="{$user->users_id}" required>
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label for="inputPassword3" class="col-sm-3 col-form-label">Alamat</label>
+                    <label for="inputPassword3" class="col-sm-3 col-form-label">Username</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" id="inputPassword3" placeholder="Alamat customer" name="alamat" value="{$cust->customer_alamat}" required>
+                      <input type="text" class="form-control" id="inputPassword3" placeholder="Username tanpa spasi" name="username" value="{$user->users_name}" required>
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label for="inputPassword3" class="col-sm-3 col-form-label">Kota</label>
+                    <label for="inputPassword3" class="col-sm-3 col-form-label">Password</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" placeholder="Kota customer" name="kota" value="{$cust->customer_alamat}" required>
+                      <input type="password" class="form-control" placeholder="Password" name="password" >
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label for="inputPassword3" class="col-sm-3 col-form-label">Site</label>
+                    <label for="inputPassword3" class="col-sm-3 col-form-label">Level</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" placeholder="Site customer" name="site" value="{$cust->customer_site}">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="inputPassword3" class="col-sm-3 col-form-label">Telp / Email</label>
-                    <div class="col-sm-4">
-                      <input type="text" class="form-control" placeholder="Telp customer" name="telp" value="{$cust->customer_telp}">
-                    </div>
-                    <div class="col-sm-5">
-                      <input type="email" class="form-control" placeholder="Email customer" name="email" value="{$cust->customer_email}">
+                      <select class="form-control" name="level" required>
+                        <option value=""> Pilih Level</option>
+                        {foreach from=$level item=l key=k}
+                        {if $k==$user->users_level}
+                          {$selected='selected'}
+                        {else}
+                          {$selected=''}
+                        {/if}
+                        <option value="{$k}" {$selected}> {$l}</option>
+                        {/foreach}
+                      </select>
                     </div>
                   </div>
                 </div>

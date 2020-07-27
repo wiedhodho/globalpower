@@ -8,9 +8,9 @@ class Customer extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
-		// if($this->session->userdata('username')==FALSE){
-		// 		redirect('/auth');
-		// }
+		if($this->session->userdata('username')==FALSE){
+				redirect('/auth');
+		}
 		$s = $this->setting->getAll();
 		foreach($s as $k){
 			$this->site_config[$k->settings_id] = $k->settings_value;

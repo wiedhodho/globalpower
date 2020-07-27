@@ -56,9 +56,9 @@ $(function () {
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
-          <div class="card card-info">
+          <div class="card card-primary">
             <div class="card-header">
-              <h5 class="card-title">Data Seluruh Customer Tetap</h5>
+              <h5 class="card-title">Data Seluruh User</h5>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -72,30 +72,30 @@ $(function () {
             <!-- /.card-header -->
             <div class="card-body">
               <div class="col-sm-12 text-center">
-              <a href="{base_url()}customer/add" class="btn btn-sm btn-primary float-sm-right"><i class="fa fa-plus"></i> Tambah</a>
+              <a href="{base_url()}users/add" class="btn btn-sm btn-primary float-sm-right"><i class="fa fa-plus"></i> Tambah</a>
               </div>
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th>No</th>
-                  <th>Nama Customer</th>
-                  <th>Alamat</th>
-                  <th>Telp</th>
-                  <th>Email</th>
+                  <th>Nama</th>
+                  <th>Level</th>
+                  <th>Username</th>
+                  <th>Login Terakhir</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                {foreach from=$cust item=c}
+                {foreach from=$user item=c}
                   <tr>
                     <td>{counter}</td>
-                    <td>{$c->customer_nama}</td>
-                    <td>{$c->customer_alamat}</td>
-                    <td>{$c->customer_telp}</td>
-                    <td>{$c->customer_email}</td>
+                    <td>{$c->users_nama}</td>
+                    <td>{$level[$c->users_level]}</td>
+                    <td>{$c->users_name}</td>
+                    <td>{$c->users_lastlogin}</td>
                     <td class="text-center">
-                      <a href="{base_url('customer/edit/')}{$c->customer_id}" class="text-success text-md"><i class="ion ion-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                      <a href="{base_url('customer/delete/')}{$c->customer_id}" class="text-secondary" onclick="return confirm('Apakah anda ingin menghapus data ini?')"><i class="fa fa-trash"></i></a>
+                      <a href="{base_url('users/edit/')}{$c->users_id}" class="text-success text-md"><i class="ion ion-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                      <a href="{base_url('users/delete/')}{$c->users_id}" class="text-secondary" onclick="return confirm('Apakah anda ingin menghapus data ini?')"><i class="fa fa-trash"></i></a>
                     </td>
                   </tr>
                 {/foreach}

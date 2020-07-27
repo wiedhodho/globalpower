@@ -19,16 +19,14 @@ class Settings extends CI_Controller {
 	}
 
 	function index(){
-		$data['halaman'] = 'Setting';
+		$data['halaman'] = array('settings' => 'Setting');
 		$data['setting'] = $this->setting->getAll();
 		$data['config'] = (object)$this->site_config;
-		$this->load->model('news');
-		$data['highlights'] = $this->news->getAll(5);
 		$this->parser->parse($this->halaman.'index', $data);
 	}
 
 	function edit($id){
-		$data['halaman'] = 'Edit Setting';
+		$data['halaman'] = array('settings' => 'Setting', 'edit'=>'Edit Setting');
 		$data['config'] = (object)$this->site_config;
 		$data['setting'] = $this->setting->getById($id);
 		$this->parser->parse($this->halaman.'edit', $data);
@@ -36,9 +34,9 @@ class Settings extends CI_Controller {
 
 	function update(){
 		if($this->setting->update())
-			$this->notif('Data Berhasil Diupdate');
+			$this->notif->info('Data Berhasil Diupdate');
 		else
-			$this->notif('Data Gagal Diupdate', 'error');
+			$this->notif->info('Data Gagal Diupdate', 'error');
 		redirect('settings');
 	}
 
@@ -48,11 +46,5 @@ class Settings extends CI_Controller {
 		else
 			$this->notif('Data Gagal Dihapus', 'error');
 		redirect('setting');
-	}
-
-	protected function notif($pesan='', $tipe='success', $title='Info'){
-		$this->session->set_flashdata('error_tipe', $tipe);
-		$this->session->set_flashdata('error_title', $title);
-		$this->session->set_flashdata('error_message', $pesan);
 	}
 }

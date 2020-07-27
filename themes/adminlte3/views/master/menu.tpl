@@ -3,14 +3,14 @@
     <!-- Add icons to the links using the .nav-icon class
          with font-awesome or any other icon font library -->
     <li class="nav-item">
-      <a href="{base_url()}" class="nav-link active">
+      <a href="{base_url()}" class="nav-link {if $smarty.server.REQUEST_URI=='/globalpower/'}active{/if}">
         <i class="nav-icon fas fa-home"></i>
         <p>
           Dashboard
         </p>
       </a>
     </li>
-    <li class="nav-item has-treeview">
+    <li class="nav-item has-treeview {if $smarty.server.REQUEST_URI|strpos:'/transaksi' !== false}menu-open{/if}">
       <a href="#" class="nav-link">
         <i class="nav-icon fas fa-copy"></i>
         <p>
@@ -37,9 +37,15 @@
             <p>Selesai</p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="{theme_url()}pages/layout/boxed.html" class="nav-link">
+            <i class="far fa-circle nav-icon text-danger"></i>
+            <p>Dibayar</p>
+          </a>
+        </li>
       </ul>
     </li>
-    <li class="nav-item has-treeview">
+    <li class="nav-item has-treeview {if $smarty.server.REQUEST_URI|strpos:'/quotation' !== false}menu-open{/if}">
       <a href="#" class="nav-link">
         <i class="nav-icon fas fa-clone"></i>
         <p>
@@ -49,19 +55,19 @@
       </a>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="{theme_url()}pages/charts/chartjs.html" class="nav-link">
+          <a href="{base_url()}quotation" class="nav-link {if $smarty.server.REQUEST_URI|strpos:'/quotation' !== false}active{/if}">
             <i class="far fa-circle nav-icon"></i>
             <p>Semua</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{theme_url()}pages/charts/flot.html" class="nav-link">
+          <a href="{base_url()}quotation/batal" class="nav-link {if $smarty.server.REQUEST_URI|strpos:'/quotation/batal' !== false}active{/if}">
             <i class="far fa-circle nav-icon"></i>
             <p>Batal</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{theme_url()}pages/charts/inline.html" class="nav-link">
+          <a href="{base_url()}quotation/add" class="nav-link {if $smarty.server.REQUEST_URI|strpos:'/quotation/add' !== false}active{/if}">
             <i class="far fa-circle nav-icon"></i>
             <p>Buat Baru</p>
           </a>
@@ -157,7 +163,7 @@
       </ul>
     </li>
     <li class="nav-item has-treeview">
-      <a href="{base_url()}customer" class="nav-link">
+      <a href="{base_url()}customer" class="nav-link {if $smarty.server.REQUEST_URI|strpos:'/customer' !== false}active{/if}">
         <i class="nav-icon fas fa-users"></i>
         <p>
           Customer
@@ -166,7 +172,7 @@
     </li>
     <li class="nav-header">ADMINISTRASI</li>
     <li class="nav-item">
-      <a href="{theme_url()}pages/calendar.html" class="nav-link">
+      <a href="{base_url()}users" class="nav-link {if $smarty.server.REQUEST_URI|strpos:'/users' !== false}active{/if}">
         <i class="nav-icon far fa-user"></i>
         <p>
           Users
@@ -175,7 +181,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="{theme_url()}pages/gallery.html" class="nav-link">
+      <a href="{base_url()}settings" class="nav-link {if $smarty.server.REQUEST_URI|strpos:'/settings' !== false}active{/if}">
         <i class="nav-icon fas fa-cogs"></i>
         <p>
           Settings
