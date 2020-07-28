@@ -58,7 +58,7 @@ $(function () {
         <div class="col-md-12">
           <div class="card card-info">
             <div class="card-header">
-              <h5 class="card-title">Data Seluruh Customer Tetap</h5>
+              <h5 class="card-title">Data Seluruh Quotation</h5>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -72,35 +72,38 @@ $(function () {
             <!-- /.card-header -->
             <div class="card-body">
               <div class="col-sm-12 text-center">
-              <a href="{base_url()}customer/add" class="btn btn-sm btn-primary float-sm-right"><i class="fa fa-plus"></i> Tambah</a>
+              <a href="{base_url()}quotation/add" class="btn btn-sm btn-primary float-sm-right"><i class="fa fa-plus"></i> Tambah</a>
               </div>
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>No</th>
-                  <th>Nama Customer</th>
-                  <th>Alamat</th>
-                  <th>Telp</th>
-                  <th>Email</th>
-                  <th>Action</th>
+                  <th width="5%">#</th>
+                  <th width="10%">Quo No.</th>
+                  <th>Customer</th>
+                  <th>Tanggal</th>
+                  <th>Total</th>
+                  <th width="10%">Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                {foreach from=$cust item=c}
-                {if $c->customer_site==''}
-                  {$nama = $c->customer_nama}
-                {else}
-                  {$nama = $c->customer_nama|cat:' - Site '|cat:$c->customer_site}
-                {/if}
+                {foreach from=$quo item=c}
+                  {if $c->customer_site==''}
+                    {$nama = $c->customer_nama}
+                  {else}
+                    {$nama = $c->customer_nama|cat:' - Site '|cat:$c->customer_site}
+                  {/if}
                   <tr>
                     <td>{counter}</td>
+                    <td>{$c->quotation_nomor}</td>
                     <td>{$nama}</td>
-                    <td>{$c->customer_alamat}</td>
-                    <td>{$c->customer_telp}</td>
-                    <td>{$c->customer_email}</td>
+                    <td>{$c->quotation_tanggal}</td>
+                    <td class="text-right">{($c->quotation_total+($c->quotation_total*$c->quotation_pajak/100)-$c->quotation_discount)|number_format}</td>
                     <td class="text-center">
-                      <a href="{base_url('customer/edit/')}{$c->customer_id}" class="text-success text-md"><i class="ion ion-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                      <a href="{base_url('customer/delete/')}{$c->customer_id}" class="text-secondary" onclick="return confirm('Apakah anda ingin menghapus data ini?')"><i class="fa fa-trash"></i></a>
+                      <div class="btn-group">
+                        <a href="{base_url('trans/proses/')}{$c->quotation_id}" class="btn btn-success btn-xs">Proses</a>
+                        <a href="{base_url('trans/batal/')}{$c->quotation_id}" class="btn btn-danger btn-xs">Batal</a>
+                        <a href="{base_url('quotation/print/')}{$c->quotation_id}" class="btn btn-warning btn-xs">Download</a>
+                      </div>
                     </td>
                   </tr>
                 {/foreach}

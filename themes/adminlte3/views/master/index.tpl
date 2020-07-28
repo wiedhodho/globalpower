@@ -16,6 +16,7 @@
   <!-- <link rel="stylesheet" href="{theme_url()}plugins/icheck-bootstrap/icheck-bootstrap.min.css"> -->
   <!-- JQVMap -->
   <!-- <link rel="stylesheet" href="{theme_url()}plugins/jqvmap/jqvmap.min.css"> -->
+  {block name='css'}{/block}
   <link rel="stylesheet" href="{theme_url()}plugins/toastr/toastr.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{theme_url()}dist/css/adminlte.min.css">
@@ -27,7 +28,6 @@
   <!-- <link rel="stylesheet" href="{theme_url()}plugins/summernote/summernote-bs4.css"> -->
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  {block name='css'}{/block}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">

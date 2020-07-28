@@ -46,7 +46,7 @@
       </ul>
     </li>
     <li class="nav-item has-treeview {if $smarty.server.REQUEST_URI|strpos:'/quotation' !== false}menu-open{/if}">
-      <a href="#" class="nav-link">
+      <a href="#" class="nav-link {if $smarty.server.REQUEST_URI|strpos:'/quotation' !== false}active{/if}">
         <i class="nav-icon fas fa-clone"></i>
         <p>
           Quotation
@@ -55,7 +55,7 @@
       </a>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="{base_url()}quotation" class="nav-link {if $smarty.server.REQUEST_URI|strpos:'/quotation' !== false}active{/if}">
+          <a href="{base_url()}quotation" class="nav-link {if $smarty.server.REQUEST_URI|strpos:'/quotation' !== false && $smarty.server.REQUEST_URI|strpos:'/quotation/' === false}active{/if}">
             <i class="far fa-circle nav-icon"></i>
             <p>Semua</p>
           </a>
