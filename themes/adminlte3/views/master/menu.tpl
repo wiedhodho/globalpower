@@ -11,7 +11,7 @@
       </a>
     </li>
     <li class="nav-item has-treeview {if $smarty.server.REQUEST_URI|strpos:'/transaksi' !== false}menu-open{/if}">
-      <a href="#" class="nav-link">
+      <a href="#" class="nav-link {if $smarty.server.REQUEST_URI|strpos:'/transaksi' !== false}active{/if}">
         <i class="nav-icon fas fa-copy"></i>
         <p>
           Transaksi
@@ -20,25 +20,25 @@
       </a>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="{theme_url()}pages/layout/top-nav.html" class="nav-link">
+          <a href="{base_url()}transaksi" class="nav-link {if $smarty.server.REQUEST_URI|strpos:'/transaksi' !== false && $smarty.server.REQUEST_URI|strpos:'/transaksi/' === false}active{/if}">
             <i class="far fa-circle nav-icon text-info"></i>
             <p>Semua </p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{theme_url()}pages/layout/top-nav-sidebar.html" class="nav-link">
+          <a href="{base_url()}transaksi/proses" class="nav-link">
             <i class="far fa-circle nav-icon text-warning"></i>
             <p>Proses</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{theme_url()}pages/layout/boxed.html" class="nav-link">
+          <a href="{base_url()}transaksi/selesai" class="nav-link">
             <i class="far fa-circle nav-icon text-success"></i>
             <p>Selesai</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{theme_url()}pages/layout/boxed.html" class="nav-link">
+          <a href="{base_url()}transaksi/dibayar" class="nav-link">
             <i class="far fa-circle nav-icon text-danger"></i>
             <p>Dibayar</p>
           </a>

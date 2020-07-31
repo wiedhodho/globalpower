@@ -14,11 +14,21 @@ class Quo extends CI_Model {
   }
 
   function getAll($status=''){
-    if($status!=='')
-      $this->db->where($this->prefix.'status', $status);
+    if($status!==''){
+      // $pos = strpos($status, '<') + strpos($status, '>') + strpos($status, '!');
+      $pos = strpos($status, '>') ;
+      if($pos!==false){
+        $this->db->where($this->prefix.'status'. $status);
+        // echo 'biasa'.$pos;
+      } else {
+        $this->db->where($this->prefix.'status', $status);
+        // echo 'tidak'.$pos;
+      }
+    }
     $this->db->join('customer', 'quotation_customer=customer_id', 'LEFT');
     $this->db->order_by($this->prefix.'lastupdate', 'DESC');
     $query = $this->db->get($this->table);
+    // echo $this->db->last_query();
     return $query->result();
   }
 
@@ -139,5 +149,12 @@ class Quo extends CI_Model {
       return TRUE;
     else
       return FALSE;
+  }
+
+  function getHistory($id){
+    $this->db->join('quotation', 'quotation_id=history_quo');
+    $this->db->where('history_quo', $id);
+    $query = $this->db->get('history');
+    return $query->result();
   }
 }

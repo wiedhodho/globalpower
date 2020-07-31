@@ -28,7 +28,7 @@ class Quotation extends CI_Controller {
 	}
 
 	function batal(){
-		$data['halaman'] = array('quotation' =>'Quotation');
+		$data['halaman'] = array('quotation' =>'Quotation', 'batal' => 'Batal');
 		$data['config'] = (object)$this->site_config;
 		$data['quo'] = $this->quo->getAll(-1);
 		$this->parser->parse($this->halaman.'/index', $data);
@@ -73,6 +73,7 @@ class Quotation extends CI_Controller {
 			$this->db->trans_rollback();
 			$this->notif->info('Quotation gagal ditambahkan', 'error');
 		} else {
+			$this->quo->update_status($id, 0);
 			$this->db->trans_commit();
 			$this->notif->info('Quotation berhasil ditambahkan');
 		}
