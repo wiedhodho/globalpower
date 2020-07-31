@@ -16,6 +16,7 @@ class Satuan {
 	);
 
 	private $j = array('Interior & Exterior', 'Advertising', 'Pengadaan');
+	private $w = array('info', 'danger', 'success');
 
 	function stn($id=''){
 		if($id!=='')
@@ -29,5 +30,12 @@ class Satuan {
 			return $this->j[$id];
 		else
 			return $this->j;
+	}
+
+	function warna($id=''){
+		if($id!=='')
+			return $this->w[$id];
+		else
+			return $this->w;
 	}
 }

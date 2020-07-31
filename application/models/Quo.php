@@ -13,7 +13,9 @@ class Quo extends CI_Model {
     $this->primary_key = $this->prefix.'id';
   }
 
-  function getAll(){
+  function getAll($status=''){
+    if($status!=='')
+      $this->db->where($this->prefix.'status', $status);
     $this->db->join('customer', 'quotation_customer=customer_id', 'LEFT');
     $this->db->order_by($this->prefix.'lastupdate', 'DESC');
     $query = $this->db->get($this->table);
@@ -21,6 +23,7 @@ class Quo extends CI_Model {
   }
 
   function getById($id){
+    $this->db->join('customer', 'quotation_customer=customer_id', 'LEFT');
     $this->db->where($this->primary_key, $id);
     $query = $this->db->get($this->table);
     return $query->row();
@@ -38,7 +41,7 @@ class Quo extends CI_Model {
 
   function add($nomor){
     $tanggal = explode('/', $this->input->post('tanggal'));
-    $this->input->post('cash') ? $cash = 1 : $cash = 0;
+    $this->input->post('cash') ? $cash = 0 : $cash = 1;
     $data = array(
       $this->prefix.'cash' => $cash,
       $this->prefix.'jenis' => $this->input->post('jenis'),
@@ -60,6 +63,13 @@ class Quo extends CI_Model {
       return FALSE;
   }
 
+  function getItemsById($id){
+    $this->db->join('quotation', 'quotation_id=items_quo');
+    $this->db->where('items_quo', $id);
+    $query = $this->db->get('items');
+    return $query->result();
+  }
+
   function add_batch_items($data){
     $query = $this->db->insert_batch('items', $data);
     if($query)
@@ -68,15 +78,39 @@ class Quo extends CI_Model {
       return FALSE;
   }
 
+  function update_batch_items($data){
+    $query = $this->db->update_batch('items', $data, 'items_id');
+    if($query)
+      return TRUE;
+    else
+      return FALSE;
+  }
+
+  function delete_batch_items($data){
+    $this->db->where_in('items_id', $data);
+    $query = $this->db->delete('items');
+    if($query)
+      return TRUE;
+    else
+      return FALSE;
+  }
+
   function update(){
+    $tanggal = explode('/', $this->input->post('tanggal'));
+    $this->input->post('cash') ? $cash = 0 : $cash = 1;
     $data = array(
+      $this->prefix.'cash' => $cash,
+      $this->prefix.'jenis' => $this->input->post('jenis'),
+      $this->prefix.'customer' => $this->input->post('customer'),
       $this->prefix.'nama' => $this->input->post('nama'),
-      $this->prefix.'alamat' => $this->input->post('alamat'),
-      $this->prefix.'kota' => $this->input->post('kota'),
-      $this->prefix.'site' => $this->input->post('site'),
       $this->prefix.'telp' => $this->input->post('telp'),
-      $this->prefix.'email' => $this->input->post('email')
+      $this->prefix.'tanggal' => $tanggal[2].'-'.$tanggal[1].'-'.$tanggal[0],
+      $this->prefix.'total' => str_replace(',','',$this->input->post('total_sebelum')),
+      $this->prefix.'pajak' => $this->input->post('pajak'),
+      $this->prefix.'discount' => $this->input->post('discount'),
+      $this->prefix.'user' => $this->session->username
     );
+
     $this->db->where($this->primary_key, $this->input->post('id'));
     $query = $this->db->update($this->table, $data);
     if($query)
@@ -84,11 +118,25 @@ class Quo extends CI_Model {
     else
       return FALSE;
   }
+
   function delete($id){
     $this->db->where($this->primary_key, $id);
     $query = $this->db->delete($this->table);
     if($query)
       return $this->db->affected_rows();
+    else
+      return FALSE;
+  }
+
+  function update_status($id, $status){
+    $data = array(
+      'history_quo' => $id,
+      'history_status' => $status,
+      'history_user' => $this->session->username
+    );
+    $query = $this->db->insert('history', $data);
+    if($query)
+      return TRUE;
     else
       return FALSE;
   }

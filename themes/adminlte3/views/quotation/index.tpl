@@ -95,15 +95,16 @@ $(function () {
                   <tr>
                     <td>{counter}</td>
                     <td>{$c->quotation_nomor}</td>
-                    <td>{$nama}</td>
-                    <td>{$c->quotation_tanggal}</td>
+                    <td>{$nama} <small class="badge badge-{$warna[$c->quotation_jenis]}">{$jenis[$c->quotation_jenis]}</small></td>
+                    <td class="text-center">{$c->quotation_tanggal}</td>
                     <td class="text-right">{($c->quotation_total+($c->quotation_total*$c->quotation_pajak/100)-$c->quotation_discount)|number_format}</td>
                     <td class="text-center">
-                      <div class="btn-group">
-                        <a href="{base_url('trans/proses/')}{$c->quotation_id}" class="btn btn-success btn-xs">Proses</a>
-                        <a href="{base_url('trans/batal/')}{$c->quotation_id}" class="btn btn-danger btn-xs">Batal</a>
-                        <a href="{base_url('quotation/print/')}{$c->quotation_id}" class="btn btn-warning btn-xs">Download</a>
-                      </div>
+                      {* <div class="btn-group"> *}
+                        <a href="{base_url('quotation/proses/')}{$c->quotation_id}" class="text-success"><i class="fa fa-check"></i> </a>&nbsp;
+                        <a href="{base_url('quotation/edit/')}{$c->quotation_id}" class="text-info"><i class="fa fa-pencil-alt"></i></a>&nbsp;
+                        <a href="{base_url('quotation/batalkan/')}{$c->quotation_id}" class="text-danger" onclick="return confirm('Apakah anda ingin membatalkan data ini?')"><i class="fa fa-times"></i></a>&nbsp;
+                        <a href="{base_url('quotation/download/')}{$c->quotation_id}" class="text-secondary"><i class="fa fa-download"></i></a>
+                      {* </div> *}
                     </td>
                   </tr>
                 {/foreach}

@@ -150,7 +150,7 @@ function total(){
                     <div class="form-group row">
                       <label for="inputEmail3" class="col-sm-3 col-form-label">Credit / Cash</label>
                       <div class="col-sm-9">
-                        <input type="checkbox" name="cash" data-on-text="Cash" data-off-text="Credit" data-bootstrap-switch>
+                        <input type="checkbox" name="cash" checked  data-on-text="Credit" data-off-text="Cash" data-bootstrap-switch>
                       </div>
                     </div>
                     <div class="form-group row">
