@@ -20,6 +20,10 @@ class Quo extends CI_Model {
       if($pos!==false){
         $this->db->where($this->prefix.'status'. $status);
         // echo 'biasa'.$pos;
+      } else if(strpos($status, '&')) {
+        $status = explode('&', $status);
+        $this->db->where($this->prefix.'status', $status[0]);
+        $this->db->or_where($this->prefix.'status', $status[1]);
       } else {
         $this->db->where($this->prefix.'status', $status);
         // echo 'tidak'.$pos;

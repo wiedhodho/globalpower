@@ -32,7 +32,7 @@ class Transaksi extends CI_Controller {
 	function proses(){
 		$data['halaman'] = array('transaksi' =>'Transaksi', 'proses' => 'Proses');
 		$data['config'] = (object)$this->site_config;
-		$data['quo'] = $this->quo->getAll(1);
+		$data['quo'] = $this->quo->getAll('1&2');
 		$data['jenis'] = $this->satuan->jenis();
 		$data['warna'] = $this->satuan->warna();
 		$data['warna1'] = $this->satuan->warna1();
@@ -43,7 +43,7 @@ class Transaksi extends CI_Controller {
 	function selesai(){
 		$data['halaman'] = array('transaksi' =>'Transaksi', 'selesai' => 'selesai');
 		$data['config'] = (object)$this->site_config;
-		$data['quo'] = $this->quo->getAll(3);
+		$data['quo'] = $this->quo->getAll('3&4');
 		$data['jenis'] = $this->satuan->jenis();
 		$data['warna'] = $this->satuan->warna();
 		$data['warna1'] = $this->satuan->warna1();

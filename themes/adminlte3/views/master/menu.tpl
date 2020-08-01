@@ -12,7 +12,7 @@
     </li>
     <li class="nav-item has-treeview {if $smarty.server.REQUEST_URI|strpos:'/transaksi' !== false}menu-open{/if}">
       <a href="#" class="nav-link {if $smarty.server.REQUEST_URI|strpos:'/transaksi' !== false}active{/if}">
-        <i class="nav-icon fas fa-copy"></i>
+        <i class="nav-icon fas fa-table"></i>
         <p>
           Transaksi
           <i class="fas fa-angle-left right"></i>
@@ -47,7 +47,7 @@
     </li>
     <li class="nav-item has-treeview {if $smarty.server.REQUEST_URI|strpos:'/quotation' !== false}menu-open{/if}">
       <a href="#" class="nav-link {if $smarty.server.REQUEST_URI|strpos:'/quotation' !== false}active{/if}">
-        <i class="nav-icon fas fa-clone"></i>
+        <i class="nav-icon fas fa-folder-open"></i>
         <p>
           Quotation
           <i class="right fas fa-angle-left"></i>
@@ -76,7 +76,7 @@
     </li>
     <li class="nav-item has-treeview {if $smarty.server.REQUEST_URI|strpos:'/spb' !== false}menu-open{/if}">
       <a href="#" class="nav-link">
-        <i class="nav-icon fas fa-tree"></i>
+        <i class="nav-icon fas fa-truck"></i>
         <p>
           SPB
           <i class="fas fa-angle-left right"></i>
@@ -92,7 +92,7 @@
         <li class="nav-item">
           <a href="{base_url()}spb/proses" class="nav-link {if $smarty.server.REQUEST_URI|strpos:'/spb/proses' !== false}active{/if}">
             <i class="far fa-circle nav-icon text-warning"></i>
-            <p>Proses</p>
+            <p>Dikirim</p>
           </a>
         </li>
         <li class="nav-item">
@@ -103,9 +103,9 @@
         </li>
       </ul>
     </li>
-    <li class="nav-item has-treeview">
+    <li class="nav-item has-treeview {if $smarty.server.REQUEST_URI|strpos:'/invoice' !== false}menu-open{/if}">
       <a href="#" class="nav-link">
-        <i class="nav-icon fas fa-table"></i>
+        <i class="nav-icon fas fa-file-invoice-dollar"></i>
         <p>
           Invoice
           <i class="fas fa-angle-left right"></i>
@@ -113,21 +113,21 @@
       </a>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="{theme_url()}pages/tables/simple.html" class="nav-link">
-            <i class="far fa-circle nav-icon"></i>
-            <p>Simple Tables</p>
+          <a href="{base_url()}invoice/add" class="nav-link {if $smarty.server.REQUEST_URI|strpos:'/invoice/add' !== false}active{/if}">
+            <i class="far fa-circle nav-icon text-warning"></i>
+            <p>Buat Baru</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{theme_url()}pages/tables/data.html" class="nav-link">
-            <i class="far fa-circle nav-icon"></i>
-            <p>DataTables</p>
+          <a href="{base_url()}invoice/belum" class="nav-link {if $smarty.server.REQUEST_URI|strpos:'/invoice/belum' !== false}active{/if}">
+            <i class="far fa-circle nav-icon text-danger"></i>
+            <p>Belum Dibayar</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{theme_url()}pages/tables/jsgrid.html" class="nav-link">
-            <i class="far fa-circle nav-icon"></i>
-            <p>jsGrid</p>
+          <a href="{base_url()}invoice/sudah" class="nav-link {if $smarty.server.REQUEST_URI|strpos:'/invoice/sudah' !== false}active{/if}">
+            <i class="far fa-circle nav-icon text-info"></i>
+            <p>Sudah Dibayar</p>
           </a>
         </li>
       </ul>
