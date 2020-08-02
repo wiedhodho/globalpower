@@ -13,13 +13,10 @@ class Inv extends CI_Model {
     $this->primary_key = $this->prefix.'id';
   }
 
-  function getAll($status=''){
-    if($status!=='')
-      $this->db->where($this->prefix.'ref!=', '');
-    else
-      $this->db->where($this->prefix.'ref','');
-    $this->db->join('customer', 'spb_customer=customer_id');
-    $this->db->join('quotation', 'quotation_id=spb_quo');
+  function getAll($status=0){
+    $this->db->where($this->prefix.'status',$status);
+    $this->db->join('customer', 'inv_customer=customer_id');
+    $this->db->join('quotation', 'quotation_id=inv_quo');
     $this->db->order_by($this->prefix.'lastupdate', 'DESC');
     $query = $this->db->get($this->table);
     // echo $this->db->last_query();
@@ -27,15 +24,15 @@ class Inv extends CI_Model {
   }
 
   function getById($id){
-    $this->db->join('customer', 'spb_customer=customer_id');
-    $this->db->join('quotation', 'quotation_id=spb_quo');
+    $this->db->join('customer', 'inv_customer=customer_id');
+    $this->db->join('quotation', 'quotation_id=inv_quo');
     $this->db->where($this->primary_key, $id);
     $query = $this->db->get($this->table);
     return $query->row();
   }
 
   function getLast(){
-    $this->db->select('MAX(spb_nomor) as nomor');
+    $this->db->select('MAX(inv_nomor) as nomor');
     $this->db->where($this->prefix.'tahun', date('Y'));
     $query = $this->db->get($this->table);
     if($query->row()->nomor!=NULL)
@@ -51,7 +48,9 @@ class Inv extends CI_Model {
       $this->prefix.'customer' => $this->input->post('customer'),
       $this->prefix.'quo' => $this->input->post('id'),
       $this->prefix.'tanggal' => $tanggal[2].'-'.$tanggal[1].'-'.$tanggal[0],
-      $this->prefix.'pengirim' => $this->input->post('pengirim'),
+      $this->prefix.'total' => str_replace(",", "", $this->input->post('total_sebelum')),
+      $this->prefix.'pajak' => $this->input->post('pajak'),
+      $this->prefix.'discount' => $this->input->post('discount'),
       $this->prefix.'user' => $this->session->username,
       $this->prefix.'tahun' => date('Y')
     );
@@ -66,7 +65,9 @@ class Inv extends CI_Model {
     $tanggal = explode('/', $this->input->post('tanggal'));
     $data = array(
       $this->prefix.'tanggal' => $tanggal[2].'-'.$tanggal[1].'-'.$tanggal[0],
-      $this->prefix.'pengirim' => $this->input->post('pengirim'),
+      $this->prefix.'total' => str_replace(",", "", $this->input->post('total_sebelum')),
+      $this->prefix.'pajak' => $this->input->post('pajak'),
+      $this->prefix.'discount' => $this->input->post('discount'),
       $this->prefix.'user' => $this->session->username
     );
 
@@ -78,12 +79,12 @@ class Inv extends CI_Model {
       return FALSE;
   }
 
-  function update_po(){
+  function update_status($id, $status){
     $data = array(
-      $this->prefix.'ref' => $this->input->post('po')
+      $this->prefix.'status' => $status
     );
 
-    $this->db->where($this->primary_key, $this->input->post('spb'));
+    $this->db->where($this->primary_key, $id);
     $query = $this->db->update($this->table, $data);
     if($query)
       return $this->db->affected_rows();

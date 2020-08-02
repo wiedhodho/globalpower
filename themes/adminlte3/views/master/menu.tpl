@@ -146,7 +146,6 @@
         <i class="nav-icon far fa-user"></i>
         <p>
           Users
-          <span class="badge badge-info right">2</span>
         </p>
       </a>
     </li>

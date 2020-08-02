@@ -20,7 +20,7 @@ $(function () {
     "responsive": true,
     "autoWidth": false,
   });
-})
+});
 </script>
 {/block}
 
@@ -58,7 +58,7 @@ $(function () {
         <div class="col-md-12">
           <div class="card card-info">
             <div class="card-header">
-              <h5 class="card-title">Data Seluruh Delivery Notes</h5>
+              <h5 class="card-title">Data Seluruh Invoice</h5>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -72,19 +72,17 @@ $(function () {
             <!-- /.card-header -->
             <div class="card-body">
               <div class="col-sm-12 text-center">
-              <a href="{base_url()}spb/add" class="btn btn-sm btn-primary float-sm-right"><i class="fa fa-plus"></i> Tambah</a>
+              <a href="{base_url()}invoice/add" class="btn btn-sm btn-primary float-sm-right"><i class="fa fa-plus"></i> Tambah</a>
               </div>
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th width="5%">#</th>
-                  <th width="10%">SPB No.</th>
+                  <th width="10%">Invoice No.</th>
                   <th width="10%">Quo No.</th>
-                  <th width="10%">PO/REF</th>
+                  <th>Tanggal</th>
                   <th>Customer</th>
-                  <th>Tgl Kirim</th>
-                  <th>Pengirim</th>
-                  <th width="10%">Action</th>
+                  <th>Total</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -96,16 +94,11 @@ $(function () {
                   {/if}
                   <tr>
                     <td>{counter}</td>
-                    <td>{$c->spb_nomor}</td>
+                    <td>{$c->inv_nomor}</td>
                     <td>{$c->quotation_nomor}</td>
-                    <td>{$c->spb_ref}</td>
-                    <td>{$nama}</td>
-                    <td class="text-center">{$c->spb_tanggal}</td>
-                    <td>{$c->spb_pengirim}</td>
-                    <td class="text-center">
-                      <a href="{base_url('spb/download/')}{$c->spb_id}" class="text-secondary"><i class="fa fa-print"></i></a>&nbsp;
-                      <a href="{base_url('spb/delete/')}{$c->spb_id}" class="text-danger" onclick="return confirm('Apakah anda ingin menghapus data ini?')"><i class="fa fa-times"></i></a>
-                    </td>
+                    <td class="text-center">{$c->inv_tanggal}</td>
+                    <td>{$nama} <small class="badge badge-{$warna[$c->quotation_jenis]}">{$jenis[$c->quotation_jenis]}</small></td>
+                    <td class="text-right">{($c->inv_total + ($c->inv_total*$c->inv_pajak/100) - $c->inv_discount)|number_format}</td>
                   </tr>
                 {/foreach}
                 </tbody>
@@ -119,6 +112,34 @@ $(function () {
       </div>
       <!-- /.row -->
     </div><!--/. container-fluid -->
+    <div class="modal fade" id="modal-default">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Input PO / REF</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form name="po_nomor" role="form" id="po_nomor">
+              <div class="form-group">
+                <label for="exampleInputEmail1">PO / REF</label>
+                <input type="text" class="form-control" placeholder="Enter PO Number" name="po" id="po">
+                <input type="hidden" id="quo" name="quo">
+                <input type="hidden" id="spb" name="spb">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+              <button type="button" class="btn btn-primary" id="simpan">Simpan</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
   </section>
   <!-- /.content -->
 </div>

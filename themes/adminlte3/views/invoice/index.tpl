@@ -20,30 +20,7 @@ $(function () {
     "responsive": true,
     "autoWidth": false,
   });
-  $('#simpan').click(function(){
-    let po = $('#po').val();
-    po = po.replace(/ /g, '');
-    if(po!=''){
-      $.post( "{base_url()}spb/simpan", $( "#po_nomor" ).serialize())
-      .done(function( data ) {
-        if(data=='sukses')
-          toastr.success("Nomor PO / REF telah dicatat!");
-        else
-          toastr.error("Nomor PO / REF gagal dicatat!");
-
-        window.location.reload();
-      });
-    } else {
-      toastr.error("Nomor PO / REF tidak benar");
-    }
-  })
 });
-
-function diproses(spb, quo){
-  $('#spb').val(spb);
-  $('#quo').val(quo);
-  $('#modal-default').modal('show');
-}
 </script>
 {/block}
 
@@ -81,7 +58,7 @@ function diproses(spb, quo){
         <div class="col-md-12">
           <div class="card card-info">
             <div class="card-header">
-              <h5 class="card-title">Data Seluruh Delivery Notes</h5>
+              <h5 class="card-title">Data Seluruh Invoice</h5>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -95,17 +72,17 @@ function diproses(spb, quo){
             <!-- /.card-header -->
             <div class="card-body">
               <div class="col-sm-12 text-center">
-              <a href="{base_url()}spb/add" class="btn btn-sm btn-primary float-sm-right"><i class="fa fa-plus"></i> Tambah</a>
+              <a href="{base_url()}invoice/add" class="btn btn-sm btn-primary float-sm-right"><i class="fa fa-plus"></i> Tambah</a>
               </div>
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th width="5%">#</th>
-                  <th width="10%">SPB No.</th>
+                  <th width="10%">Invoice No.</th>
                   <th width="10%">Quo No.</th>
+                  <th>Tanggal</th>
                   <th>Customer</th>
-                  <th>Tgl Kirim</th>
-                  <th>Pengirim</th>
+                  <th>Total</th>
                   <th width="10%">Action</th>
                 </tr>
                 </thead>
@@ -118,16 +95,16 @@ function diproses(spb, quo){
                   {/if}
                   <tr>
                     <td>{counter}</td>
-                    <td>{$c->spb_nomor}</td>
+                    <td>{$c->inv_nomor}</td>
                     <td>{$c->quotation_nomor}</td>
-                    <td>{$nama}</td>
-                    <td class="text-center">{$c->spb_tanggal}</td>
-                    <td>{$c->spb_pengirim}</td>
+                    <td class="text-center">{$c->inv_tanggal}</td>
+                    <td>{$nama} <small class="badge badge-{$warna[$c->quotation_jenis]}">{$jenis[$c->quotation_jenis]}</small></td>
+                    <td class="text-right">{($c->inv_total + ($c->inv_total*$c->inv_pajak/100) - $c->inv_discount)|number_format}</td>
                     <td class="text-center">
-                        <a href="#" class="text-success" onClick="diproses({$c->spb_id}, {$c->quotation_id})"><i class="fa fa-check"></i> </a>&nbsp;
-                        <a href="{base_url('spb/edit/')}{$c->spb_id}" class="text-info"><i class="fa fa-pencil-alt"></i></a>&nbsp;
-                        <a href="{base_url('spb/download/')}{$c->spb_id}" class="text-secondary"><i class="fa fa-print"></i></a>&nbsp;
-                        <a href="{base_url('spb/delete/')}{$c->spb_id}" class="text-danger" onclick="return confirm('Apakah anda ingin menghapus data ini?')"><i class="fa fa-times"></i></a>
+                        <a href="{base_url('invoice/proses/')}{$c->inv_id}/{$c->inv_quo}" class="text-success"><i class="fa fa-check"></i> </a>&nbsp;
+                        <a href="{base_url('invoice/edit/')}{$c->inv_id}" class="text-info"><i class="fa fa-pencil-alt"></i></a>&nbsp;
+                        <a href="{base_url('invoice/download/')}{$c->inv_id}" class="text-secondary"><i class="fa fa-print"></i></a>&nbsp;
+                        <a href="{base_url('invoice/delete/')}{$c->inv_id}" class="text-danger" onclick="return confirm('Apakah anda ingin menghapus data ini?')"><i class="fa fa-times"></i></a>
                     </td>
                   </tr>
                 {/foreach}

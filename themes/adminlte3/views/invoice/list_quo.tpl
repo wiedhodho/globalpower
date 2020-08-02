@@ -96,7 +96,7 @@ $(function () {
                     <td class="text-center">{$c->quotation_tanggal}</td>
                     <td class="text-right">{($c->quotation_total+($c->quotation_total*$c->quotation_pajak/100)-$c->quotation_discount)|number_format}</td>
                     <td class="text-center">
-                      <a href="{base_url('spb/buat/')}{$c->quotation_id}" class="btn btn-success btn-xs"><i class="fa fa-check"></i> Buat Invoice</a>&nbsp;
+                      <a href="{base_url('invoice/buat/')}{$c->quotation_id}" class="btn btn-success btn-xs"><i class="fa fa-check"></i> Buat Invoice</a>&nbsp;
                     </td>
                   </tr>
                 {/foreach}

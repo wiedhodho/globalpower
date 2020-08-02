@@ -54,7 +54,7 @@ class Transaksi extends CI_Controller {
 	function dibayar(){
 		$data['halaman'] = array('transaksi' =>'Transaksi', 'dibayar' => 'Dibayar');
 		$data['config'] = (object)$this->site_config;
-		$data['quo'] = $this->quo->getAll(4);
+		$data['quo'] = $this->quo->getAll(5);
 		$data['jenis'] = $this->satuan->jenis();
 		$data['warna'] = $this->satuan->warna();
 		$data['warna1'] = $this->satuan->warna1();

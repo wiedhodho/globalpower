@@ -84,11 +84,11 @@ function qty(th, id){
 
 function total(){
   var sum = 0, pajak, disc;
-  $('.total').each(function(){
-      sum += parseInt($(this).val());
-      // console.log($(this).val());
-  });
-  $('#total_sebelum').val(sum.toLocaleString());
+  // $('.total').each(function(){
+  //     sum += parseInt($(this).val());
+  //     // console.log($(this).val());
+  // });
+  sum = {$quo->inv_total};
   pajak = sum * $('#pajak').val() / 100;
   sum = sum + pajak;
   disc = $('#discount').val();
@@ -129,11 +129,11 @@ function total(){
   <section class="content">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-8">
-          <form class="form-horizontal" method="post" action="{base_url('spb/update')}">
+        <div class="col-lg-12">
+          <form class="form-horizontal" method="post" action="{base_url('invoice/update')}">
             <div class="card card-info">
               <div class="card-header">
-                <h5 class="card-title">Form Edit SPB</h5>
+                <h5 class="card-title">Form Invoice</h5>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -150,32 +150,32 @@ function total(){
                     <div class="form-group row">
                       <label for="inputEmail3" class="col-sm-3 col-form-label">Jenis</label>
                       <div class="col-sm-9">
-                        {$jenis[$spb->quotation_jenis]}
-                        <input type="hidden" name="id" value="{$spb->spb_id}" />
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="inputEmail3" class="col-sm-3 col-form-label">No. SPB</label>
-                      <div class="col-sm-9">
-                        <strong>{$spb->spb_nomor}</strong>
+                        {$jenis[$quo->quotation_jenis]}
+                        <input type="hidden" name="id" value="{$quo->inv_id}" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <label for="inputEmail3" class="col-sm-3 col-form-label">Customer</label>
                       <div class="col-sm-9">
-                        {if $spb->customer_site==''}
-                          {$nama = $spb->customer_nama}
+                        {if $quo->customer_site==''}
+                          {$nama = $quo->customer_nama}
                         {else}
-                          {$nama = $spb->customer_nama|cat:' - Site '|cat:$spb->customer_site}
+                          {$nama = $quo->customer_nama|cat:' - Site '|cat:$quo->customer_site}
                         {/if}
                         {$nama}
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="inputEmail3" class="col-sm-3 col-form-label">Alamat</label>
+                      <div class="col-sm-9">
+                        {$quo->customer_alamat}
                       </div>
                     </div>
                     <div class="form-group row">
                       <label for="inputPassword3" class="col-sm-3 col-form-label">Tanggal</label>
                       <div class="col-lg-3">
                         <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                            <input type="text" name="tanggal" class="form-control datetimepicker-input" data-target="#reservationdate" data-toggle="datetimepicker" value="{$spb->spb_tanggal|date_format:'%d/%m/%Y'}" required/>
+                            <input type="text" name="tanggal" class="form-control datetimepicker-input" data-target="#reservationdate" data-toggle="datetimepicker" value="{$quo->inv_tanggal|date_format:'%d/%m/%Y'}" required/>
                             <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
@@ -183,12 +183,35 @@ function total(){
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="inputEmail3" class="col-sm-3 col-form-label">Pengirim</label>
-                      <div class="col-lg-4">
-                        <input type="text" class="form-control hitung" placeholder="Nama Pengirim" name="pengirim" value="{$spb->spb_pengirim}">
+                      <label for="inputEmail3" class="col-sm-3 col-form-label">PPN / Discount</label>
+                      <div class="input-group col-lg-1">
+                        <input type="number" class="form-control hitung" placeholder="Pajak" name="pajak" value="{$quo->inv_pajak}" id="pajak" required>
+                        <div class="input-group-append">
+                          <span class="input-group-text">%</span>
+                        </div>
+                      </div>
+                      <div class="col-lg-2">
+                        <input type="number" class="form-control text-right hitung" placeholder="Discount" name="discount" id="discount" value="{$quo->inv_discount}" required>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="inputEmail3" class="col-sm-3 col-form-label">Total sblm Pajak</label>
+                      <div class="col-lg-3">
+
+                        <input type="text" class="form-control text-right" value="{$quo->inv_total|number_format}" name="total_sebelum" id="total_sebelum" required readonly>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="inputEmail3" class="col-sm-3 col-form-label">Total stlh Pajak - Disc</label>
+                      <div class="col-lg-3">
+                        {$total = $quo->inv_total+($quo->inv_total*$quo->inv_pajak/100)-$quo->inv_discount}
+                        <input type="text" class="form-control text-right" value="{$total|number_format}" name="total_sesudah" id="total" required readonly>
                       </div>
                     </div>
                   </div>
+              </div>
+              <div class="card-footer">
+                <button type="submit" class="btn btn-info"><i class="fa fa-save"></i> Simpan</button>
               </div>
               <!-- ./card-body -->
             </div>
@@ -214,6 +237,8 @@ function total(){
                         <th>No</th>
                         <th>Desc</th>
                         <th>Qty</th>
+                        <th class="text-right">Price</th>
+                        <th class="text-right">Total</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -222,14 +247,13 @@ function total(){
                         <td>{counter}</td>
                         <td>{$i->items_desc}</td>
                         <td>{$i->items_qty} {$satuan[$i->items_satuan]}</td>
+                        <td class="text-right">{$i->items_price|number_format}</td>
+                        <td class="text-right">{($i->items_price*$i->items_qty)|number_format}</td>
                       </tr>
                       {/foreach}
                     </tbody>
                   </table>
                 </div>
-              </div>
-              <div class="card-footer">
-                <button type="submit" class="btn btn-info"><i class="fa fa-save"></i> Simpan</button>
               </div>
               <!-- ./card-body -->
             </div>

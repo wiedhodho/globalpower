@@ -42,17 +42,21 @@ class Invoice extends CI_Controller {
 	}
 
 	function belum(){
-		$data['halaman'] = array('invoice/belum' =>'Invoice', 'belum'=>'SPB Dikirim');
+		$data['halaman'] = array('invoice/belum' =>'Invoice', 'belum'=>'Invoice Belum Dibayar');
 		$data['config'] = (object)$this->site_config;
 		$data['spb'] = $this->inv->getAll();
+		$data['jenis'] = $this->satuan->jenis();
+		$data['warna'] = $this->satuan->warna();
 		$this->parser->parse($this->halaman.'/index', $data);
 	}
 
-	function selesai(){
-		$data['halaman'] = array('invoice/belum' =>'Invoice', 'selesai'=>'SPB Selesai');
+	function sudah(){
+		$data['halaman'] = array('invoice/belum' =>'Invoice', 'selesai'=>'Invoice Selesai');
 		$data['config'] = (object)$this->site_config;
-		$data['spb'] = $this->inv->getAll('ok');
-		$this->parser->parse($this->halaman.'/selesai', $data);
+		$data['spb'] = $this->inv->getAll(1);
+		$data['jenis'] = $this->satuan->jenis();
+		$data['warna'] = $this->satuan->warna();
+		$this->parser->parse($this->halaman.'/sudah', $data);
 	}
 
 	function save(){
@@ -60,7 +64,7 @@ class Invoice extends CI_Controller {
 		$this->db->trans_begin();
 		$nomor = $this->inv->getLast()+1;
 		$id = $this->inv->add($nomor);
-		$this->quo->update_status($this->input->post('id'), 2);
+		$this->quo->update_status($this->input->post('id'), 4);
 
 		if ($this->db->trans_status() === FALSE){
 			$this->db->trans_rollback();
@@ -68,6 +72,22 @@ class Invoice extends CI_Controller {
 		} else {
 			$this->db->trans_commit();
 			$this->notif->info('Invoice berhasil ditambahkan');
+		}
+
+		redirect('invoice/belum');
+	}
+
+	function proses($id, $q){
+		$this->load->model('quo');
+		$this->db->trans_begin();
+		$id = $this->inv->update_status($id, 1);
+		$this->quo->update_status($q, 5);
+		if ($this->db->trans_status() === FALSE){
+			$this->db->trans_rollback();
+			$this->notif->info('Invoice gagal dibayar', 'error');
+		} else {
+			$this->db->trans_commit();
+			$this->notif->info('Invoice berhasil dibayar');
 		}
 
 		redirect('invoice/belum');
@@ -93,8 +113,8 @@ class Invoice extends CI_Controller {
 		$data['config'] = (object)$this->site_config;
 		$data['satuan'] = $this->satuan->stn();
 		$data['jenis'] = $this->satuan->jenis();
-		$data['spb'] = $this->inv->getById($id);
-		$data['items'] = $this->quo->getItemsById($data['spb']->spb_quo);
+		$data['quo'] = $this->inv->getById($id);
+		$data['items'] = $this->quo->getItemsById($data['quo']->inv_quo);
 		$this->parser->parse($this->halaman.'/edit', $data);
 	}
 
@@ -119,25 +139,24 @@ class Invoice extends CI_Controller {
 		$this->load->library('pdf');
 		$this->load->model('quo');
 		$this->load->library('ciqrcode');
+		$data['config'] = (object)$this->site_config;
 		$data['satuan'] = $this->satuan->stn();
 		$data['jenis'] = $this->satuan->jenis();
 		$data['spb'] = $this->inv->getById($id);
-		$data['items'] = $this->quo->getItemsById($data['spb']->spb_quo);
-		$params['data'] = base_url().'download/spb/'.urlencode(base64_encode(json_encode($data['spb']->spb_id)));
+		$data['items'] = $this->quo->getItemsById($data['spb']->inv_quo);
+		$params['data'] = base_url().'download/invoice/'.urlencode(base64_encode(json_encode($data['spb']->inv_id)));
 		//$params['data'] = 'base64_encode(json_encode($data))';
 		$params['level'] = 'L';
 		$params['size'] = 3;
-		$params['savename'] = './hasil/barcode_'.$this->session->userid.'.png';
+		$params['savename'] = './hasil/inv_'.$this->session->userid.'.png';
 		$this->ciqrcode->generate($params);
 
-		// $this->load->view('spb', $data);
-		$this->pdf->load_view('spb', $data);
+		// $this->load->view('invoice', $data);
+		$this->pdf->load_view('invoice', $data);
 
-		$this->pdf->set_paper("A6", 'landscape');
+		$this->pdf->set_paper("A4");
 		$this->pdf->render();
-		$this->pdf->stream('SPB_'.$data['spb']->spb_nomor.'.pdf');
-		// $this->load->helper('download');
-		// force_download('hasil/'.$name, NULL);
+		$this->pdf->stream('INV_'.$data['spb']->inv_nomor.'.pdf');
 	}
 
 }

@@ -17,7 +17,7 @@ class Satuan {
 
 	private $j = array('Interior & Exterior', 'Advertising', 'Pengadaan');
 	private $w = array('info', 'danger', 'success', 'warning');
-	private $w1 = array('danger', 'warning', 'info', 'secondary', 4=>'success');
+	private $w1 = array('danger', 'warning', 'info', 'secondary', 4=>'success', 'primary');
 	private $s1 = array(-1 => 'Batal', 0 => 'Quotation', 1=>'Proses', 2=>'Dikirim', 3=>'Terkirim', 4=>'Invoice', 5=>'Dibayar');
 
 	function stn($id=''){

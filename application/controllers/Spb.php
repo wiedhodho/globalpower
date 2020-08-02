@@ -45,6 +45,8 @@ class Spb extends CI_Controller {
 		$data['halaman'] = array('spb/proses' =>'Spb', 'proses'=>'SPB Dikirim');
 		$data['config'] = (object)$this->site_config;
 		$data['spb'] = $this->m_spb->getAll();
+		$data['jenis'] = $this->satuan->jenis();
+		$data['warna'] = $this->satuan->warna();
 		$this->parser->parse($this->halaman.'/index', $data);
 	}
 
@@ -52,6 +54,8 @@ class Spb extends CI_Controller {
 		$data['halaman'] = array('spb/proses' =>'Spb', 'selesai'=>'SPB Selesai');
 		$data['config'] = (object)$this->site_config;
 		$data['spb'] = $this->m_spb->getAll('ok');
+		$data['jenis'] = $this->satuan->jenis();
+		$data['warna'] = $this->satuan->warna();
 		$this->parser->parse($this->halaman.'/selesai', $data);
 	}
 

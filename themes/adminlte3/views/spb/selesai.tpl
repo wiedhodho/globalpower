@@ -99,7 +99,7 @@ $(function () {
                     <td>{$c->spb_nomor}</td>
                     <td>{$c->quotation_nomor}</td>
                     <td>{$c->spb_ref}</td>
-                    <td>{$nama}</td>
+                    <td>{$nama} <small class="badge badge-{$warna[$c->quotation_jenis]}">{$jenis[$c->quotation_jenis]}</small></td>
                     <td class="text-center">{$c->spb_tanggal}</td>
                     <td>{$c->spb_pengirim}</td>
                     <td class="text-center">
