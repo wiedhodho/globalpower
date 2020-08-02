@@ -161,4 +161,13 @@ class Quo extends CI_Model {
     $query = $this->db->get('history');
     return $query->result();
   }
+
+  function countAll($jenis=''){
+    $this->db->where($this->prefix.'tahun', date('Y'));
+    if($jenis!=='')
+      $this->db->where($this->prefix.'jenis', $jenis);
+    $this->db->select('count(*) as banyak');
+    $query = $this->db->get($this->table);
+    return $query->row()->banyak;
+  }
 }

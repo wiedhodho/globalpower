@@ -102,7 +102,7 @@
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="{theme_url()}plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- Summernote -->
-<script src="{theme_url()}plugins/summernote/summernote-bs4.min.js"></script>
+{* <script src="{theme_url()}plugins/summernote/summernote-bs4.min.js"></script> *}
 <!-- overlayScrollbars -->
 <script src="{theme_url()}plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->

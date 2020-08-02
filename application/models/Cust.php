@@ -65,4 +65,11 @@ class Cust extends CI_Model {
     else
       return FALSE;
   }
+
+  function countAll(){
+    $this->db->where($this->prefix.'deleted', '0');
+    $this->db->select('count(*) as banyak');
+    $query = $this->db->get($this->table);
+    return $query->row()->banyak;
+  }
 }
