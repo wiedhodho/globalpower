@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Spb extends CI_Controller {
 
 	private $site_config;
-	private $halaman='Spb';
+	private $halaman='spb';
 
 	function __construct(){
 		parent::__construct();

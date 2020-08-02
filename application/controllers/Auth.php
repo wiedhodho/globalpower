@@ -42,7 +42,6 @@ class Auth extends CI_Controller{
 	}
 
 	function session_reg($sess){
-		$kode = explode('.', $sess->pegawai_skpd);
 		$data = array(
 			'userid' => $sess->users_id,
 			'level' => $sess->users_level,

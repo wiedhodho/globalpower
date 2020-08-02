@@ -21,7 +21,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="{theme_url()}index2.html"><b>{$config->app_name}</b></a>
+    <a href="{base_url()}"><b>{$config->app_name}</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">

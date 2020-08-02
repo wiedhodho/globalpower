@@ -150,13 +150,13 @@
         </td>
     </tr>
   </table>
-  <footer>
+  <!-- <footer>
     <hr />
     <img src="<?php echo FCPATH.'hasil/barcode_'.$this->session->userid.'.png';?>" style="width:45px; margin:0; float: left;"/>
     <p style="margin-top: 0px; margin-left: 10px;">
       Dokumen ini adalah milik CV. GLOBAL POWER.<br />
       Untuk mengecek keaslian dokumen, <br />silahkan scan qr code yang ada disamping.<br />
     </p>
-  </footer>
+  </footer> -->
 </body>
 </html>
