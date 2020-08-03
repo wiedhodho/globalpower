@@ -24,17 +24,17 @@ $(function () {
         {
           backgroundColor: '#007bff',
           borderColor    : '#007bff',
-          data           : [1000, 2000, 3000, 2500, 2700, 2500, 3000]
+          data           : [{foreach from=$bulan item=b key=k}{$ketemu=0}{foreach from=$per_bulan item=p}{if $p->bulan==$k-1 && $p->quotation_jenis==0}{$ketemu=$p->banyak}{break}{/if}{/foreach}{$ketemu},{/foreach}]
         },
         {
           backgroundColor: '#ced4da',
           borderColor    : '#ced4da',
-          data           : [700, 1700, 2700, 2000, 1800, 1500, 2000]
+          data           : [{foreach from=$bulan item=b key=k}{$ketemu=0}{foreach from=$per_bulan item=p}{if $p->bulan==$k-1 && $p->quotation_jenis==1}{$ketemu=$p->banyak}{break}{/if}{/foreach}{$ketemu},{/foreach}]
         },
         {
           backgroundColor: '#ffc107',
           borderColor    : '#ffc107',
-          data           : [700, 1700, 2700, 2000, 1800, 1500, 2000]
+          data           : [{foreach from=$bulan item=b key=k}{$ketemu=0}{foreach from=$per_bulan item=p}{if $p->bulan==$k-1 && $p->quotation_jenis==2}{$ketemu=$p->banyak}{break}{/if}{/foreach}{$ketemu},{/foreach}]
         }
       ]
     },
@@ -57,20 +57,11 @@ $(function () {
           gridLines: {
             display      : true,
             lineWidth    : '4px',
-            color        : 'rgba(0, 0, 0, .2)',
-            zeroLineColor: 'transparent'
+            color        : 'rgba(0, 0, 0, .2)'
           },
           ticks    : $.extend({
             beginAtZero: true,
-
-            // Include a dollar sign in the ticks
-            callback: function (value, index, values) {
-              if (value >= 1000) {
-                value /= 1000
-                value += 'k'
-              }
-              return '$' + value
-            }
+            stepSize: 1,
           }, ticksStyle)
         }],
         xAxes: [{
@@ -119,7 +110,7 @@ $(function () {
             <div class="info-box-content">
               <span class="info-box-text">Int & Exterior</span>
               <span class="info-box-number">
-                {$interior}
+                {$interior->banyak}
               </span>
             </div>
             <!-- /.info-box-content -->
@@ -133,7 +124,7 @@ $(function () {
 
             <div class="info-box-content">
               <span class="info-box-text">Advertising</span>
-              <span class="info-box-number">{$adv}</span>
+              <span class="info-box-number">{$adv->banyak}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -150,7 +141,7 @@ $(function () {
 
             <div class="info-box-content">
               <span class="info-box-text">Pengadaan Barang</span>
-              <span class="info-box-number">{$pengadaan}</span>
+              <span class="info-box-number">{$pengadaan->banyak}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -202,32 +193,31 @@ $(function () {
                 <!-- /.col -->
                 <div class="col-md-3">
                   <p class="text-center">
-                    <strong>Total Tahun {$smarty.now|date_format:"%Y"}</strong>
+                    <strong>Total Tahun {$smarty.now|date_format:"%Y"} ({$dalam})</strong>
                   </p>
-
                   <div class="progress-group">
                     Interior & Exterior
-                    <span class="float-right"><b>160</b>/200</span>
+                    <span class="float-right"><b>{($interior->total/$pembagi)|number_format}</b>/{$total_rupiah|number_format}</span>
                     <div class="progress progress-sm">
-                      <div class="progress-bar bg-primary" style="width: 80%"></div>
+                      <div class="progress-bar bg-primary" style="width: {$interior->total/$pembagi/$total_rupiah*100}%"></div>
                     </div>
                   </div>
                   <!-- /.progress-group -->
 
                   <div class="progress-group">
                     Advertising
-                    <span class="float-right"><b>310</b>/400</span>
+                    <span class="float-right">{($adv->total/$pembagi)|number_format}</b>/{$total_rupiah|number_format}</span>
                     <div class="progress progress-sm">
-                      <div class="progress-bar bg-danger" style="width: 75%"></div>
+                      <div class="progress-bar bg-danger" style="width: {$adv->total/$pembagi/$total_rupiah*100}%"></div>
                     </div>
                   </div>
 
                   <!-- /.progress-group -->
                   <div class="progress-group">
                     <span class="progress-text">Pengadaan</span>
-                    <span class="float-right"><b>480</b>/800</span>
+                    <span class="float-right">{($pengadaan->total/$pembagi)|number_format}</b>/{$total_rupiah|number_format}</span>
                     <div class="progress progress-sm">
-                      <div class="progress-bar bg-warning" style="width: 60%"></div>
+                      <div class="progress-bar bg-warning" style="width: {$pengadaan->total/$pembagi/$total_rupiah*100}%"></div>
                     </div>
                   </div>
                 </div>

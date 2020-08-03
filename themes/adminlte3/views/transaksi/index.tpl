@@ -98,7 +98,7 @@ function history(id){
                   <tr>
                     <td>{counter}</td>
                     <td>{$c->quotation_nomor}</td>
-                    <td>{$nama} <small class="badge badge-{$warna[$c->quotation_jenis]}">{$jenis[$c->quotation_jenis]}</small></td>
+                    <td><a href='{base_url()}transaksi/detail/{$c->quotation_id}' style="color: #212529;">{$nama} <small class="badge badge-{$warna[$c->quotation_jenis]}">{$jenis[$c->quotation_jenis]}</small></a></td>
                     <td class="text-center">{$c->quotation_tanggal}</td>
                     <td class="text-center"><a href="#" onClick="history({$c->quotation_id})" class="btn btn-xs btn-{$warna1[$c->quotation_status]}">{$status[$c->quotation_status]}</a></td>
                     <td class="text-right">{($c->quotation_total+($c->quotation_total*$c->quotation_pajak/100)-$c->quotation_discount)|number_format}</td>

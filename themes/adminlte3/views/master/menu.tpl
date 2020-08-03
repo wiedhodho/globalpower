@@ -55,6 +55,12 @@
       </a>
       <ul class="nav nav-treeview">
         <li class="nav-item">
+          <a href="{base_url()}quotation/add" class="nav-link {if $smarty.server.REQUEST_URI|strpos:'/quotation/add' !== false}active{/if}">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Buat Baru</p>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="{base_url()}quotation" class="nav-link {if $smarty.server.REQUEST_URI|strpos:'/quotation' !== false && $smarty.server.REQUEST_URI|strpos:'/quotation/' === false}active{/if}">
             <i class="far fa-circle nav-icon"></i>
             <p>Semua</p>
@@ -64,12 +70,6 @@
           <a href="{base_url()}quotation/batal" class="nav-link {if $smarty.server.REQUEST_URI|strpos:'/quotation/batal' !== false}active{/if}">
             <i class="far fa-circle nav-icon"></i>
             <p>Batal</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{base_url()}quotation/add" class="nav-link {if $smarty.server.REQUEST_URI|strpos:'/quotation/add' !== false}active{/if}">
-            <i class="far fa-circle nav-icon"></i>
-            <p>Buat Baru</p>
           </a>
         </li>
       </ul>

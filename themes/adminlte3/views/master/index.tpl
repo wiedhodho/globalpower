@@ -22,10 +22,6 @@
   <link rel="stylesheet" href="{theme_url()}dist/css/adminlte.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{theme_url()}plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- Daterange picker -->
-  <link rel="stylesheet" href="{theme_url()}plugins/daterangepicker/daterangepicker.css">
-  <!-- summernote -->
-  <!-- <link rel="stylesheet" href="{theme_url()}plugins/summernote/summernote-bs4.css"> -->
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -89,16 +85,8 @@
 <script src="{theme_url()}plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- ChartJS -->
 <script src="{theme_url()}plugins/chart.js/Chart.min.js"></script>
-<!-- Sparkline -->
-<script src="{theme_url()}plugins/sparklines/sparkline.js"></script>
-<!-- JQVMap -->
-<script src="{theme_url()}plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="{theme_url()}plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-<!-- jQuery Knob Chart -->
-<script src="{theme_url()}plugins/jquery-knob/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
 <script src="{theme_url()}plugins/moment/moment.min.js"></script>
-<script src="{theme_url()}plugins/daterangepicker/daterangepicker.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="{theme_url()}plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- Summernote -->
@@ -110,7 +98,5 @@
 <script src="{theme_url()}plugins/toastr/toastr.min.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 {block name='js'}{/block}
-<!-- AdminLTE for demo purposes -->
-<script src="{theme_url()}dist/js/demo.js"></script>
 </body>
 </html>

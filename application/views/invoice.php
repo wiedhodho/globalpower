@@ -193,7 +193,7 @@
     </div>
     <div style="float: right; margin-right: 10px;position: absolute">
       If you have any questions about this invoice, please contact<br />
-      ALDINO YUDHA P ( 0852 4721 6278 ) MUHAMMAD ABIDIN ( 0853 8787 8998 )<br />
+      ALDINO YUDHA P ( +62 852 4721 6278 ) / MUHAMMAD ABIDIN ( +62 853 8787 8998 )<br />
       Thank You For Your Business!
     </div>
   </footer>

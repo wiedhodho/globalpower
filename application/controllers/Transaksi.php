@@ -29,6 +29,21 @@ class Transaksi extends CI_Controller {
 		$this->parser->parse($this->halaman.'/index', $data);
 	}
 
+	function detail($id){
+		$this->load->model('m_spb');
+		$this->load->model('inv');
+		$data['halaman'] = array('transaksi' =>'Transaksi', 'detail' => 'Detail');
+		$data['config'] = (object)$this->site_config;
+		$data['jenis'] = $this->satuan->jenis();
+		$data['warna'] = $this->satuan->warna();
+		$data['warna1'] = $this->satuan->warna1();
+		$data['status'] = $this->satuan->status();
+		$data['trans'] = $this->quo->getById($id);
+		$data['spb'] = $this->m_spb->getByQuoId($id);
+		$data['inv'] = $this->inv->getByQuoId($id);
+		$this->parser->parse($this->halaman.'/detail', $data);
+	}
+
 	function proses(){
 		$data['halaman'] = array('transaksi' =>'Transaksi', 'proses' => 'Proses');
 		$data['config'] = (object)$this->site_config;

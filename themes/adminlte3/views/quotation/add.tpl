@@ -64,7 +64,20 @@ $(function () {
   });
   $('.hitung').change(function(){
     total();
-  })
+  });
+  $('#cash').on('switchChange.bootstrapSwitch', function () {
+    if($(this).bootstrapSwitch('state')){
+      $('.customer').removeClass('hide');
+      $('#customer').prop('required',true);
+      $('.cash').addClass('hide');
+      $('#pajak').val(10);
+    } else {
+      $('.customer').addClass('hide');
+      $('#customer').prop('required',false);
+      $('.cash').removeClass('hide');
+      $('#pajak').val(0);
+    }
+  });
 })
 function hapus(id){
   $('#baris_'+id).remove();
@@ -150,12 +163,12 @@ function total(){
                     <div class="form-group row">
                       <label for="inputEmail3" class="col-sm-3 col-form-label">Credit / Cash</label>
                       <div class="col-sm-9">
-                        <input type="checkbox" name="cash" checked  data-on-text="Credit" data-off-text="Cash" data-bootstrap-switch>
+                        <input type="checkbox" id="cash" name="cash" checked  data-on-text="Credit" data-off-text="Cash" data-bootstrap-switch>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label for="inputEmail3" class="col-sm-3 col-form-label">Jenis</label>
-                      <div class="col-sm-9">
+                      <div class="col-sm-6">
                         <select name="jenis" class="form-control" required>
                           <option value="">Pilih Jenis</option>
                           {foreach from=$jenis item=j key=k}
@@ -175,10 +188,10 @@ function total(){
                         </div>
                       </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group row customer">
                       <label for="inputEmail3" class="col-sm-3 col-form-label">Customer</label>
                       <div class="col-sm-9">
-                        <select class="form-control select2" style="width: 100%;" name="customer" required>
+                        <select class="form-control select2" style="width: 100%;" name="customer" id="customer" required>
                           <option value="">Pilih Customer</option>
                           {foreach from=$cust item=c}
                           {if $c->customer_site==''}
@@ -189,6 +202,18 @@ function total(){
                           <option value="{$c->customer_id}">{$nama}</option>
                           {/foreach}
                         </select>
+                      </div>
+                    </div>
+                    <div class="form-group row cash hide">
+                      <label for="inputEmail3" class="col-sm-3 col-form-label">Nama</label>
+                      <div class="col-sm-6">
+                        <input type="text" name="nama" class="form-control" placeholder="Masukkan nama.." />
+                      </div>
+                    </div>
+                    <div class="form-group row cash hide">
+                      <label for="inputEmail3" class="col-sm-3 col-form-label">Telp</label>
+                      <div class="col-sm-3">
+                        <input type="text" name="telp" class="form-control" placeholder="Masukkan telp.." />
                       </div>
                     </div>
                     <div class="form-group row">

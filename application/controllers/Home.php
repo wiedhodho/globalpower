@@ -27,6 +27,18 @@ class Home extends CI_Controller {
 		$data['pengadaan'] = $this->quo->countAll(2);
 		$data['cust'] = $this->cust->countAll();
 		$data['bulan'] = $this->bulan->bln();
+		$data['total_rupiah'] = $data['interior']->total + $data['adv']->total + $data['pengadaan']->total;
+		if($data['total_rupiah']>1000000){
+			$data['total_rupiah'] = $data['total_rupiah'] / 1000000;
+			$data['pembagi'] = 1000000;
+			$data['dalam'] = 'juta rupiah';
+		} else if($data['total_rupiah']>1000){
+			$data['total_rupiah'] = $data['total_rupiah'] / 1000;
+			$data['pembagi'] = 1000;
+			$data['dalam'] = 'ribu rupiah';
+		}
+		$data['per_bulan'] = $this->quo->countByBulan(date('Y'));
+		// print_r($data['per_bulan']);
 		$this->parser->parse($this->halaman.'/index', $data);
 	}
 }

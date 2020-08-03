@@ -166,8 +166,17 @@ class Quo extends CI_Model {
     $this->db->where($this->prefix.'tahun', date('Y'));
     if($jenis!=='')
       $this->db->where($this->prefix.'jenis', $jenis);
-    $this->db->select('count(*) as banyak');
+    $this->db->select('count(*) as banyak, sum(quotation_total+(quotation_total*quotation_pajak/100)-quotation_discount) as total');
     $query = $this->db->get($this->table);
-    return $query->row()->banyak;
+    return $query->row();
+  }
+
+  function countByBulan($tahun){
+    $this->db->where($this->prefix.'tahun', $tahun);
+    $this->db->select('count(*) as banyak, MONTH(quotation_tanggal) as bulan, quotation_jenis');
+    $this->db->order_by('bulan');
+    $this->db->group_by('bulan, quotation_jenis');
+    $query = $this->db->get($this->table);
+    return $query->result();
   }
 }

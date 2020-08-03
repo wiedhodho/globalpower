@@ -34,6 +34,14 @@ class M_spb extends CI_Model {
     return $query->row();
   }
 
+  function getByQuoId($id){
+    $this->db->join('customer', 'spb_customer=customer_id');
+    $this->db->join('quotation', 'quotation_id=spb_quo');
+    $this->db->where('spb_quo', $id);
+    $query = $this->db->get($this->table);
+    return $query->row();
+  }
+
   function getLast(){
     $this->db->select('MAX(spb_nomor) as nomor');
     $this->db->where($this->prefix.'tahun', date('Y'));

@@ -31,6 +31,14 @@ class Inv extends CI_Model {
     return $query->row();
   }
 
+  function getByQuoId($id){
+    $this->db->join('customer', 'inv_customer=customer_id');
+    $this->db->join('quotation', 'quotation_id=inv_quo');
+    $this->db->where('inv_quo', $id);
+    $query = $this->db->get($this->table);
+    return $query->row();
+  }
+
   function getLast(){
     $this->db->select('MAX(inv_nomor) as nomor');
     $this->db->where($this->prefix.'tahun', date('Y'));

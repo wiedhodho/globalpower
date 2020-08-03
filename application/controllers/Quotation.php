@@ -69,11 +69,17 @@ class Quotation extends CI_Controller {
 		}
 
 		$this->quo->add_batch_items($data);
+
+		// if($this->input->post('cash'))
+			$this->quo->update_status($id, 0);
+		// else {
+		// 	$this->quo->update_status($id, 0);
+		// }
+
 		if ($this->db->trans_status() === FALSE){
 			$this->db->trans_rollback();
 			$this->notif->info('Quotation gagal ditambahkan', 'error');
 		} else {
-			$this->quo->update_status($id, 0);
 			$this->db->trans_commit();
 			$this->notif->info('Quotation berhasil ditambahkan');
 		}
