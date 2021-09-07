@@ -34,7 +34,7 @@ $(function () {
       '</div>' +
       '<div class="form-group col-lg-1">' +
         '<label></label>' +
-        '<input name="qty['+id+']" type="number" class="form-control qty" placeholder="Enter qty" value="1" id="qty_'+id+'" onChange="qty(this, '+id+')" required>' +
+        '<input name="qty['+id+']" type="text" class="form-control qty" placeholder="Enter qty" value="1" id="qty_'+id+'" onChange="qty(this, '+id+')" required>' +
       '</div>' +
       '<div class="form-group col-lg-2">' +
         '<label></label>' +
@@ -287,7 +287,7 @@ function total(){
                     </div>
                     <div class="form-group col-lg-1">
                       <label>Qty</label>
-                      <input name="qty[{$i->items_id}]" type="number" class="form-control qty" placeholder="Enter qty" value="{$i->items_qty}" id="qty_{$i->items_id}" onChange="qty(this,{$i->items_id})" required>
+                      <input name="qty[{$i->items_id}]" type="text" class="form-control qty" placeholder="Enter qty" value="{$i->items_qty}" id="qty_{$i->items_id}" onChange="qty(this,{$i->items_id})" required>
                     </div>
                     <div class="form-group col-lg-2">
                       <label>Satuan</label>
