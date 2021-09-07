@@ -103,7 +103,6 @@ class Quotation extends CI_Controller {
 		$lama = explode(',', $this->input->post('isi'));
 		unset($lama[array_search('', $lama)]);
 		$this->db->trans_begin();
-		$this->quo->update();
 		$total = 0;
 		foreach ($this->input->post('desc') as $k => $v) {
 			if ($k > 0) {
@@ -126,6 +125,7 @@ class Quotation extends CI_Controller {
 			}
 			$total += ($this->input->post('qty')[$k] * $this->input->post('price')[$k]);
 		}
+		$this->quo->update($total);
 
 		// check if total is not same
 		// if ($total != str_replace(',', '', $this->input->post('total_sebelum'))) {
