@@ -64,7 +64,7 @@ class Quo extends CI_Model {
       $this->prefix . 'nama' => $this->input->post('nama'),
       $this->prefix . 'telp' => $this->input->post('telp'),
       $this->prefix . 'tanggal' => $tanggal[2] . '-' . $tanggal[1] . '-' . $tanggal[0],
-      $this->prefix . 'total' => preg_replace('/[0-9]+/', '', $this->input->post('total_sebelum')),
+      $this->prefix . 'total' => preg_replace('/\D/', '', $this->input->post('total_sebelum')),
       $this->prefix . 'pajak' => $this->input->post('pajak'),
       $this->prefix . 'discount' => $this->input->post('discount'),
       $this->prefix . 'user' => $this->session->username,

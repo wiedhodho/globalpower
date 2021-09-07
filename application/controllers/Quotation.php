@@ -45,7 +45,6 @@ class Quotation extends CI_Controller {
 	}
 
 	function save() {
-		// print_r($_POST);
 		$this->db->trans_begin();
 		$nomor = $this->quo->getLast() + 1;
 		$id = $this->quo->add($nomor);
