@@ -128,12 +128,12 @@ class Quotation extends CI_Controller {
 		}
 
 		// check if total is not same
-		if ($total != str_replace(',', '', $this->input->post('total_sebelum'))) {
-			$this->db->trans_rollback();
-			$this->notif->info('Quotation gagal diupdate total=' . $total . '-' . $this->input->post('total_sebelum'), 'error');
-			redirect('quotation');
-			exit();
-		}
+		// if ($total != str_replace(',', '', $this->input->post('total_sebelum'))) {
+		// 	$this->db->trans_rollback();
+		// 	$this->notif->info('Quotation gagal diupdate total=' . $total . '-' . $this->input->post('total_sebelum'), 'error');
+		// 	redirect('quotation');
+		// 	exit();
+		// }
 
 		$this->quo->update_batch_items($data_lama);
 
