@@ -186,17 +186,18 @@ class Quotation extends CI_Controller {
 		$satuan = $this->satuan->stn();
 
 		//render nomor
-		$this->excel->xls->getActiveSheet()->setCellValue('A6', 'No: ' . $quo->quotation_nomor);
+		$this->excel->xls->getActiveSheet()->setCellValue('B3', 'No. ' . $quo->quotation_nomor . '/QUO/' . strftime('%Y', strtotime($quo->quotation_tanggal)));
 
 		//render to
 		$this->excel->xls->getActiveSheet()->setCellValue('H8', $quo->customer_nama);
 		$this->excel->xls->getActiveSheet()->setCellValue('H9', $quo->customer_site);
+		$this->excel->xls->getActiveSheet()->setCellValue('H10', $quo->quotation_po);
 
 		//render date
 		$this->excel->xls->getActiveSheet()->setCellValue('L10', date("d M Y", strtotime($quo->quotation_tanggal)));
 
 		// RENDER ITEM
-		$baseRow = 14;
+		$baseRow = 15;
 		$no = 0;
 		$total = 0;
 		foreach ($item as $i) {
@@ -225,9 +226,9 @@ class Quotation extends CI_Controller {
 			// render grand total
 			$this->excel->xls->getActiveSheet()->setCellValue('M' . ($row + 5), '=M' . ($row + 2) . '+M' . ($row + 3) . '-' . ($row + 4));
 		} else {
-			$this->excel->xls->getActiveSheet()->setCellValue('M30', "=" . 'M29*' . $quo->quotation_pajak . '/100');
-			$this->excel->xls->getActiveSheet()->setCellValue('M31', $quo->quotation_discount);
-			$this->excel->xls->getActiveSheet()->setCellValue('M32', '=M29+M30-M31');
+			$this->excel->xls->getActiveSheet()->setCellValue('M31', "=" . 'M30*' . $quo->quotation_pajak . '/100');
+			$this->excel->xls->getActiveSheet()->setCellValue('M32', $quo->quotation_discount);
+			$this->excel->xls->getActiveSheet()->setCellValue('M33', '=M30+M31-M32');
 		}
 
 		$name = 'quotation.xlsx';

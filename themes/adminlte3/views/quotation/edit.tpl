@@ -230,6 +230,12 @@ function total(){
                       </div>
                     </div>
                     <div class="form-group row">
+                      <label for="inputEmail3" class="col-sm-3 col-form-label">PO No.</label>
+                      <div class="col-lg-3">
+                        <input type="text" class="form-control" name="po" id="po" value="{$quo->quotation_po}">
+                      </div>
+                    </div>
+                    <div class="form-group row">
                       <label for="inputEmail3" class="col-sm-3 col-form-label">PPN / Discount</label>
                       <div class="input-group col-lg-1">
                         <input type="number" class="form-control hitung" placeholder="Pajak" name="pajak" value="{$quo->quotation_pajak}" id="pajak" required>

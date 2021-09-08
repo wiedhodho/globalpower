@@ -79,6 +79,7 @@ $(function () {
                 <tr>
                   <th width="5%">#</th>
                   <th width="10%">Quo No.</th>
+                  <th width="10%">PO No.</th>
                   <th>Customer</th>
                   <th>Tanggal</th>
                   <th>Total</th>
@@ -94,7 +95,8 @@ $(function () {
                   {/if}
                   <tr>
                     <td>{counter}</td>
-                    <td>{$c->quotation_nomor}</td>
+                    <td>{$c->quotation_nomor}/QUO/{$c->quotation_tanggal|date_format:"%Y"}</td>
+                    <td>{$c->quotation_po}</td>
                     <td>{$nama} <small class="badge badge-{$warna[$c->quotation_jenis]}">{$jenis[$c->quotation_jenis]}</small></td>
                     <td class="text-center">{$c->quotation_tanggal}</td>
                     <td class="text-right">{($c->quotation_total+($c->quotation_total*$c->quotation_pajak/100)-$c->quotation_discount)|number_format}</td>
