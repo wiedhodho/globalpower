@@ -176,7 +176,7 @@
   <table width="100%">
     <tr>
       <td width="60%">
-        OTHER COMMENTS<br />
+        <u>OTHER COMMENTS</u><br />
         1. Total payment due in 2 weeks<br />
         2. Please include the invoice number on your check<br />
         3. Transfer To: <br />
