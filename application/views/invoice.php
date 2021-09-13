@@ -185,7 +185,8 @@
         a/n M. Abidin
       </td>
       <td style="text-align: center;" valign="bottom">
-        Muhammad Abidin<br />
+        <img src="<?= base_url('img/ttd.PNG'); ?>" border="0" width="100px" /> <br />
+        <u>Muhammad Abidin</u><br />
         Direktur
       </td>
     </tr>
