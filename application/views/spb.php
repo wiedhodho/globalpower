@@ -86,7 +86,7 @@
         <tr>
           <th scope="row"><?php echo $nomor++; ?></th>
           <td><?php echo $i->items_desc; ?></td>
-          <td align="center"><?php echo $i->items_qty . ' ' . $satuan[$i->items_satuan]; ?></td>
+          <td align="center"><?php echo number_format($i->items_qty) . ' ' . $satuan[$i->items_satuan]; ?></td>
           <td align="right"></td>
         </tr>
       <?php } ?>

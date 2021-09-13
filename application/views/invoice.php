@@ -131,7 +131,7 @@
         <tr>
           <td scope="row"><?php echo $nomor++; ?></td>
           <td><?php echo $i->items_desc; ?></td>
-          <td align="center"><?php echo $i->items_qty . ' ' . $satuan[$i->items_satuan]; ?></td>
+          <td align="center"><?php echo number_format($i->items_qty) . ' ' . $satuan[$i->items_satuan]; ?></td>
           <td align="right"><?php echo number_format($i->items_price); ?></td>
           <td align="right"><?php echo number_format($i->items_price * $i->items_qty); ?></td>
         </tr>
@@ -194,13 +194,13 @@
     <hr />
     <img src="<?php echo base_url() . 'hasil/inv_' . $this->session->userid . '.png'; ?>" style="width:45px; margin:0; float: left;" />
     <div style="float: left; margin-left: 10px; position: absolute">
-      Dokumen ini adalah milik CV. GLOBAL POWER.<br />
+      Dokumen ini adalah milik PT. MEGAH ALAM SOLUSINDO.<br />
       Untuk mengecek keaslian dokumen, <br />
       silahkan scan qr code yang ada disamping.
     </div>
     <div style="float: right; margin-right: 10px;position: absolute">
       If you have any questions about this invoice, please contact<br />
-      ALDINO YUDHA P ( +62 852 4721 6278 ) / MUHAMMAD ABIDIN ( +62 853 8787 8998 )<br />
+      MUHAMMAD ABIDIN ( +62 853 8787 8998 )<br />
       Thank You For Your Business!
     </div>
   </footer>
