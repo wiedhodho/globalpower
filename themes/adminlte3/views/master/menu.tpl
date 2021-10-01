@@ -133,6 +133,14 @@
       </ul>
     </li>
     <li class="nav-item has-treeview">
+      <a href="{base_url()}rekapinv" class="nav-link {if $smarty.server.REQUEST_URI|strpos:'/rekapinv' !== false}active{/if}">
+        <i class="nav-icon fas fa-book"></i>
+        <p>
+          TT INV
+        </p>
+      </a>
+    </li>
+    <li class="nav-item has-treeview">
       <a href="{base_url()}customer" class="nav-link {if $smarty.server.REQUEST_URI|strpos:'/customer' !== false}active{/if}">
         <i class="nav-icon fas fa-users"></i>
         <p>
