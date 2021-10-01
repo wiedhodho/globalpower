@@ -65,7 +65,7 @@ $(function () {
   $('.hitung').change(function(){
     total();
   });
-  $('#cash').on('switchChange.bootstrapSwitch', function () {
+  {* $('#cash').on('switchChange.bootstrapSwitch', function () {
     if($(this).bootstrapSwitch('state')){
       $('.customer').removeClass('hide');
       $('#customer').prop('required',true);
@@ -77,7 +77,7 @@ $(function () {
       $('.cash').removeClass('hide');
       $('#pajak').val(0);
     }
-  });
+  }); *}
 })
 function hapus(id){
   $('#baris_'+id).remove();
@@ -204,7 +204,7 @@ function total(){
                         </select>
                       </div>
                     </div>
-                    <div class="form-group row cash hide">
+                    {* <div class="form-group row cash hide">
                       <label for="inputEmail3" class="col-sm-3 col-form-label">Nama</label>
                       <div class="col-sm-6">
                         <input type="text" name="nama" class="form-control" placeholder="Masukkan nama.." />
@@ -215,7 +215,7 @@ function total(){
                       <div class="col-sm-3">
                         <input type="text" name="telp" class="form-control" placeholder="Masukkan telp.." />
                       </div>
-                    </div>
+                    </div> *}
                     <div class="form-group row">
                       <label for="inputEmail3" class="col-sm-3 col-form-label">PO No.</label>
                       <div class="col-lg-3">
