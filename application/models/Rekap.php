@@ -27,11 +27,11 @@ class Rekap extends CI_Model {
     return $query->row();
   }
 
-  function add() {
+  function add($cust, $inv, $total) {
     $data = array(
-      $this->prefix . 'customer' => $this->input->post('customer'),
-      $this->prefix . 'invoice' => $this->input->post('invoice'),
-      $this->prefix . 'total' => $this->input->post('total'),
+      $this->prefix . 'customer' => $cust,
+      $this->prefix . 'invoice' => $inv,
+      $this->prefix . 'total' => $total,
       $this->prefix . 'user' => $this->session->username
     );
     $query = $this->db->insert($this->table, $data);

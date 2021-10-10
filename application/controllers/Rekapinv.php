@@ -40,4 +40,25 @@ class Rekapinv extends CI_Controller {
 		$data['spb'] = $this->inv->getAll(0, $cust_id);
 		$this->parser->parse($this->halaman . '/add2', $data);
 	}
+
+	function save() {
+		$this->load->model('inv');
+		$inv = array_keys($this->input->post('inv'));
+		$total = $this->inv->getTotal($inv);
+		$this->rekap->add($total->inv_customer, implode(',', $inv), $total->total);
+		$this->inv->update_status($inv, 1);
+		$this->notif->info('Rekap berhasil dibuat');
+		redirect('rekapinv');
+	}
+
+	function delete($id) {
+		$inv_id = $this->rekap->getById($id);
+		if ($this->rekap->delete($id)) {
+			$this->load->model('inv');
+			$this->inv->update_status(explode(',', $inv_id->rekap_invoice), 0);
+			$this->notif->info('Rekap berhasil dihapus');
+		} else
+			$this->notif->info('Rekap gagal dihapus', 'error');
+		redirect('rekapinv');
+	}
 }

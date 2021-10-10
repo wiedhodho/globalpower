@@ -13,9 +13,9 @@ class Inv extends CI_Model {
     $this->primary_key = $this->prefix . 'id';
   }
 
-  function getAll($status = 0, $cust = '') {
+  function getAll($status = 0, $cust = '', $operator = '') {
     if ($cust !== '') $this->db->where($this->prefix . 'customer', $cust);
-    $this->db->where($this->prefix . 'status', $status);
+    $this->db->where($this->prefix . 'status' . $operator, $status);
     $this->db->join('customer', 'inv_customer=customer_id');
     $this->db->join('quotation', 'quotation_id=inv_quo');
     $this->db->order_by($this->prefix . 'lastupdate', 'DESC');
@@ -33,6 +33,15 @@ class Inv extends CI_Model {
     $query = $this->db->get($this->table);
     // echo $this->db->last_query();
     return $query->result();
+  }
+
+  function getTotal($inv_id) {
+    $this->db->select('inv_customer, SUM(inv_total) as total');
+    $this->db->where_in($this->primary_key, $inv_id);
+    $this->db->group_by('inv_customer');
+    $query = $this->db->get($this->table);
+    // echo $this->db->last_query();
+    return $query->row();
   }
 
   function getById($id) {
@@ -104,7 +113,11 @@ class Inv extends CI_Model {
       $this->prefix . 'status' => $status
     );
 
-    $this->db->where($this->primary_key, $id);
+    if (is_array($id)) {
+      $this->db->where_in($this->primary_key, $id);
+    } else {
+      $this->db->where($this->primary_key, $id);
+    }
     $query = $this->db->update($this->table, $data);
     if ($query)
       return $this->db->affected_rows();

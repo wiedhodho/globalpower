@@ -97,7 +97,6 @@ $(function () {
                     <td>{$nama} </td>
                     <td class="text-right">{$c->rekap_total|number_format}</td>
                     <td class="text-center">
-                        <a href="{base_url('rekapinv/edit/')}{$c->rekap_id}" class="text-info"><i class="fa fa-pencil-alt"></i></a>&nbsp;
                         <a href="{base_url('rekapinv/download/')}{$c->rekap_id}" class="text-secondary"><i class="fa fa-print"></i></a>&nbsp;
                         <a href="{base_url('rekapinv/delete/')}{$c->rekap_id}" class="text-danger" onclick="return confirm('Apakah anda ingin menghapus data ini?')"><i class="fa fa-times"></i></a>
                     </td>

@@ -74,36 +74,38 @@ $(function () {
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th width="5%"><input type="checkbox" id="checkAll"></th>
-                  <th width="10%">Invoice No.</th>
-                  <th width="10%">Quo No.</th>
-                  <th>Tanggal</th>
-                  <th>Customer</th>
-                  <th>Total</th>
-                </tr>
-                </thead>
-                <tbody>
-                {foreach from=$spb item=c}
-                  {if $c->customer_site==''}
-                    {$nama = $c->customer_nama}
-                  {else}
-                    {$nama = $c->customer_nama|cat:' - Site '|cat:$c->customer_site}
-                  {/if}
+              <form method="post" name="inv" action="{base_url()}rekapinv/save">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
                   <tr>
-                    <td><input type="checkbox" class="checked" name=inv[{$c->inv_id}]></td>
-                    <td>{$c->inv_nomor}</td>
-                    <td>{$c->quotation_nomor}</td>
-                    <td class="text-center">{$c->inv_tanggal}</td>
-                    <td>{$nama} <small class="badge badge-{$warna[$c->quotation_jenis]}">{$jenis[$c->quotation_jenis]}</small></td>
-                    <td class="text-right">{($c->inv_total + ($c->inv_total*$c->inv_pajak/100) - $c->inv_discount)|number_format}</td>
+                    <th width="5%"><input type="checkbox" id="checkAll"></th>
+                    <th width="10%">Invoice No.</th>
+                    <th width="10%">Quo No.</th>
+                    <th>Tanggal</th>
+                    <th>Customer</th>
+                    <th>Total</th>
                   </tr>
-                {/foreach}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                  {foreach from=$spb item=c}
+                    {if $c->customer_site==''}
+                      {$nama = $c->customer_nama}
+                    {else}
+                      {$nama = $c->customer_nama|cat:' - Site '|cat:$c->customer_site}
+                    {/if}
+                    <tr>
+                      <td><input type="checkbox" class="checked" name=inv[{$c->inv_id}]></td>
+                      <td>{$c->inv_nomor}</td>
+                      <td>{$c->quotation_nomor}</td>
+                      <td class="text-center">{$c->inv_tanggal}</td>
+                      <td>{$nama} <small class="badge badge-{$warna[$c->quotation_jenis]}">{$jenis[$c->quotation_jenis]}</small></td>
+                      <td class="text-right">{($c->inv_total + ($c->inv_total*$c->inv_pajak/100) - $c->inv_discount)|number_format}</td>
+                    </tr>
+                  {/foreach}
+                  </tbody>
+                </table>
+                <button class="btn btn-primary" type="submit">Simpan</button>
+              </form>
             </div>
             <!-- ./card-body -->
           </div>
