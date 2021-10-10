@@ -81,7 +81,7 @@ class Invoice extends CI_Controller {
 		$this->load->model('quo');
 		$this->db->trans_begin();
 		$id = $this->inv->update_status($id, 1);
-		$this->quo->update_status($q, 5);
+		$this->quo->update_status($q, 6);
 		if ($this->db->trans_status() === FALSE) {
 			$this->db->trans_rollback();
 			$this->notif->info('Invoice gagal dibayar', 'error');

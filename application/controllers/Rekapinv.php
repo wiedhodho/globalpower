@@ -61,4 +61,25 @@ class Rekapinv extends CI_Controller {
 			$this->notif->info('Rekap gagal dihapus', 'error');
 		redirect('rekapinv');
 	}
+
+	function download($id) {
+		$this->load->model('inv');
+		$this->load->library('pdf');
+		$this->load->library('ciqrcode');
+		$rekap = $this->rekap->getById($id);
+		$data['rekap'] = $rekap;
+		$data['inv'] = $this->inv->getWhereIn(explode(',', $rekap->rekap_invoice));
+		$params['data'] = base_url() . 'rekapinv/download/' . urlencode(base64_encode(json_encode($data['inv'][0]->inv_id)));
+		$params['level'] = 'L';
+		$params['size'] = 3;
+		$params['savename'] = './hasil/barcode_' . $this->session->userid . '.png';
+		$this->ciqrcode->generate($params);
+
+		// $this->load->view('spb', $data);
+		$this->pdf->load_view('rekap', $data);
+
+		$this->pdf->set_paper("A4");
+		$this->pdf->render();
+		$this->pdf->stream('Rekap_' . $data['inv']->rekap_id . '.pdf');
+	}
 }

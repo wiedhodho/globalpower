@@ -4,6 +4,11 @@
 {/block}
 
 {block name='js'}
+<script>
+function editStatus(){
+    $('#edit-status').modal('show');
+}
+</script>
 {/block}
 
 {block name='content'}
@@ -134,8 +139,9 @@
           <div class="card card-danger">
             <div class="card-header">
               <h3 class="card-title">Invoice</h3>
-
               <div class="card-tools">
+              <button type="button" class="btn btn-tool" onclick="editStatus()"><i class="fas fa-edit"></i>
+                </button>
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
               </div>
@@ -176,6 +182,40 @@
         </div>
       </div>
     </div><!--/. container-fluid -->
+    <div class="modal fade" id="edit-status">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form class="form-horizontal" method="post" action="{base_url()}transaksi/update_status">
+          <div class="modal-header">
+            <h4 class="modal-title">Ubah Status</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-4 col-form-label">Status</label>
+                <div class="col-sm-8">
+                <input type="hidden" name="id" value="{$trans->quotation_id}">
+                  <select name="status" class="form-control" required="">
+                    <option value="">Pilih Status</option>
+                    {foreach from=$status item=a key=k}
+                    <option value="{$k}">{$a}</option>
+                    {/foreach}
+                  </select>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button>
+            <button type="submit" class="btn btn-danger">Simpan</button>
+          </div>
+          </form>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
   </section>
   <!-- /.content -->
 </div>

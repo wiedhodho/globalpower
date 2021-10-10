@@ -35,6 +35,14 @@ class Inv extends CI_Model {
     return $query->result();
   }
 
+  function getWhereIn($inv_id) {
+    $this->db->where_in($this->primary_key, $inv_id);
+    $this->db->join('quotation', 'inv_quo=quotation_id');
+    $this->db->join('customer', 'inv_customer=customer_id');
+    $query = $this->db->get($this->table);
+    return $query->result();
+  }
+
   function getTotal($inv_id) {
     $this->db->select('inv_customer, SUM(inv_total) as total');
     $this->db->where_in($this->primary_key, $inv_id);
@@ -108,13 +116,15 @@ class Inv extends CI_Model {
       return FALSE;
   }
 
-  function update_status($id, $status) {
+  function update_status($id, $status, $mode = '') {
     $data = array(
       $this->prefix . 'status' => $status
     );
 
     if (is_array($id)) {
       $this->db->where_in($this->primary_key, $id);
+    } else if ($mode == 'quo') {
+      $this->db->where('inv_quo', $id);
     } else {
       $this->db->where($this->primary_key, $id);
     }
