@@ -135,6 +135,19 @@ class Quo extends CI_Model {
       return FALSE;
   }
 
+  function updatePo() {
+    $data = array(
+      $this->prefix . 'po' => $this->input->post('po')
+    );
+
+    $this->db->where($this->primary_key, $this->input->post('id'));
+    $query = $this->db->update($this->table, $data);
+    if ($query)
+      return $this->db->affected_rows();
+    else
+      return FALSE;
+  }
+
   function delete($id) {
     $this->db->where($this->primary_key, $id);
     $query = $this->db->delete($this->table);

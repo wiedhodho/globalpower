@@ -98,6 +98,11 @@ class Quotation extends CI_Controller {
 		$this->parser->parse($this->halaman . '/edit', $data);
 	}
 
+	function updatepo() {
+		$this->quo->updatePo();
+		redirect('transaksi');
+	}
+
 	function update() {
 		$lama = explode(',', $this->input->post('isi'));
 		unset($lama[array_search('', $lama)]);

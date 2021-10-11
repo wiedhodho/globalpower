@@ -8,6 +8,9 @@
 function editStatus(){
     $('#edit-status').modal('show');
 }
+function editPO(){
+    $('#edit-po').modal('show');
+}
 </script>
 {/block}
 
@@ -79,6 +82,8 @@ function editStatus(){
               <h3 class="card-title">Quotation</h3>
 
               <div class="card-tools">
+              <button type="button" class="btn btn-tool" onclick="editPO()"><i class="fas fa-edit"></i>
+                </button>
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
               </div>
@@ -203,6 +208,35 @@ function editStatus(){
                     <option value="{$k}">{$a}</option>
                     {/foreach}
                   </select>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button>
+            <button type="submit" class="btn btn-danger">Simpan</button>
+          </div>
+          </form>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <div class="modal fade" id="edit-po">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form class="form-horizontal" method="post" action="{base_url()}quotation/updatepo">
+          <div class="modal-header">
+            <h4 class="modal-title">Ubah PO</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-4 col-form-label">Nomor PO</label>
+                <div class="col-sm-8">
+                <input type="hidden" name="id" value="{$trans->quotation_id}">
+                <input type="text" class="form-control" name="po" value="{$trans->quotation_po}">
                 </div>
               </div>
           </div>
