@@ -80,7 +80,7 @@ class Invoice extends CI_Controller {
 	function proses($id, $q) {
 		$this->load->model('quo');
 		$this->db->trans_begin();
-		$id = $this->inv->update_status($id, 1);
+		$id = $this->inv->update_status($id, 2);
 		$this->quo->update_status($q, 6);
 		if ($this->db->trans_status() === FALSE) {
 			$this->db->trans_rollback();
